@@ -10,5 +10,4 @@ import java.sql.Timestamp
 data class Categories(
     @PrimaryKey
     @ColumnInfo(name = "category") val category: String,
-    @ColumnInfo(name = "timestamp") val timestamp: Long
-    )
+    @ColumnInfo(name = "timestamp") val timestamp: Long)

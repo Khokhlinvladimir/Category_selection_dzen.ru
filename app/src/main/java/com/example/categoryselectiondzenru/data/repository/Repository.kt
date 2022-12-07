@@ -10,8 +10,8 @@ class Repository(private val categoriesDao: CategoriesDao) {
     val allCategories: Flow<List<Categories>> = categoriesDao.getCategories()
 
     @WorkerThread
-    suspend fun insert(category: Categories) {
-        categoriesDao.insert(category)
+    suspend fun insert(categories: Categories) {
+        categoriesDao.insert(categories = categories)
     }
 
     @WorkerThread

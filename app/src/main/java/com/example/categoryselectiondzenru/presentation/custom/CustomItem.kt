@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import com.example.categoryselectiondzenru.R
 import kotlin.properties.Delegates
 
 class CustomItem(
@@ -16,12 +17,12 @@ class CustomItem(
 ) : View(context, attributesSet, defStyleAttr, defStyleRes)  {
 
     private lateinit var onPaint: Paint
-    private lateinit var offPaint: Paint
+    private lateinit var defPaint: Paint
     private var onColor by Delegates.notNull<Int>()
-    private var offColor by Delegates.notNull<Int>()
+    private var defColor by Delegates.notNull<Int>()
 
 
-    constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, 0)
+    constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
 
     constructor(context: Context, attributesSet: AttributeSet?) : this(context, attributesSet, 0)
 
@@ -29,9 +30,19 @@ class CustomItem(
 
     init {
         initPaints()
+        initAttributes(attributesSet, defStyleAttr, defStyleRes)
     }
 
+    private fun initAttributes(attributesSet: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
 
+        val typedArray = context.obtainStyledAttributes(attributesSet, R.styleable.CustomItem, defStyleAttr, defStyleRes)
+
+        onColor = typedArray.getColor(R.styleable.CustomItem_pressedButtonColor, OPTION1_DEFAULT_COLOR)
+        defColor = typedArray.getColor(R.styleable.CustomItem_defaultButtonColor, OPTION2_DEFAULT_COLOR)
+
+
+        typedArray.recycle()
+    }
 
     private fun initPaints() {
         onPaint.apply {
@@ -41,9 +52,9 @@ class CustomItem(
             strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, resources.displayMetrics)
         }
 
-        offPaint.apply {
+        defPaint.apply {
             Paint(Paint.ANTI_ALIAS_FLAG)
-            color = offColor
+            color = defColor
             style = Paint.Style.STROKE
             strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, resources.displayMetrics)
         }
@@ -51,17 +62,7 @@ class CustomItem(
 
 
 
- /*   private fun initAttributes(attributesSet: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
 
-        val typedArray = context.obtainStyledAttributes(attributesSet, R.styleable.CustomItem, defStyleAttr, defStyleRes)
-
-        // parsing XML attributes
-        option1Color = typedArray.getColor(R.styleable.CustomItem_option1Color, OPTION1_DEFAULT_COLOR)
-        option2Color = typedArray.getColor(R.styleable.CustomItem_option2Color, OPTION2_DEFAULT_COLOR)
-
-
-        typedArray.recycle()
-    }*/
 
     companion object {
         const val OPTION1_DEFAULT_COLOR = Color.GREEN

@@ -6,7 +6,6 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
-import com.example.categoryselectiondzenru.R
 import kotlin.properties.Delegates
 
 class CustomItem(
@@ -16,10 +15,10 @@ class CustomItem(
     defStyleRes: Int
 ) : View(context, attributesSet, defStyleAttr, defStyleRes)  {
 
-    private lateinit var option1Paint: Paint
-    private lateinit var option2Paint: Paint
-    private var option1Color by Delegates.notNull<Int>()
-    private var option2Color by Delegates.notNull<Int>()
+    private lateinit var onPaint: Paint
+    private lateinit var offPaint: Paint
+    private var onColor by Delegates.notNull<Int>()
+    private var offColor by Delegates.notNull<Int>()
 
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, 0)
@@ -35,16 +34,16 @@ class CustomItem(
 
 
     private fun initPaints() {
-        option1Paint.apply {
+        onPaint.apply {
             Paint(Paint.ANTI_ALIAS_FLAG)
-            color = option1Color
+            color = onColor
             style = Paint.Style.STROKE
             strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, resources.displayMetrics)
         }
 
-        option2Paint.apply {
+        offPaint.apply {
             Paint(Paint.ANTI_ALIAS_FLAG)
-            color = option2Color
+            color = offColor
             style = Paint.Style.STROKE
             strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, resources.displayMetrics)
         }

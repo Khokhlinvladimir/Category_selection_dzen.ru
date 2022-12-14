@@ -15,6 +15,7 @@ class SelectionFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSelectionBinding.inflate(inflater, container, false)
 
+        binding.custom
         return binding.root
     }
 

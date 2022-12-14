@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.categoryselectiondzenru.databinding.FragmentSelectionBinding
+import com.example.categoryselectiondzenru.presentation.activity.MainActivity
 
 class SelectionFragment : Fragment() {
 
@@ -15,7 +16,14 @@ class SelectionFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSelectionBinding.inflate(inflater, container, false)
 
-        binding.custom
+        (activity as MainActivity).supportActionBar?.hide()
+
+
+
+
+
+
+
         return binding.root
     }
 

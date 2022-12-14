@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:layout_width="252dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/header_margin_value"
+        android:layout_marginStart="@dimen/header_margin_value"
         android:text="@string/category_information"
         android:textSize="16sp"
-        android:textColor="@color/secondary_color"/>
+        android:textStyle="normal"
+        android:textColor="@color/text_header_color"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonCheck"
-        android:layout_width="79dp"
-        android:layout_height="40dp"
-        android:fontFamily="sans-serif-light"
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/header_margin_value"
         android:stateListAnimator="@null"
         android:text="@string/later"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        app:rippleColor="@color/secondary_color"
         android:textSize="16sp"
-        app:backgroundTint="@color/secondary_color"
+        android:backgroundTint="@color/button_header_color"
         app:cornerRadius="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressViewCheck"
-        app:layout_constraintVertical_bias="0.050"/>
+        android:layout_gravity="end" />
 
 
-</LinearLayout>
+</FrameLayout>

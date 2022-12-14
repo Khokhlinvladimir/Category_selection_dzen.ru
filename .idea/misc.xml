@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/font/dzen_bold.xml" value="0.39076923076923076" />
+        <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/font/dzen_medium.xml" value="0.39076923076923076" />
+        <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/font/dzen_regular.xml" value="0.39076923076923076" />
         <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/layout/categories_header.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/layout/categories_header.xml" value="0.5" />
         <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/layout/category_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/layout/fragment_selection.xml" value="0.33" />
         <entry key="..\:/Users/Mountain/Git repository/Category_selection_dzen.ru/app/src/main/res/menu/menu.xml" value="0.36666666666666664" />

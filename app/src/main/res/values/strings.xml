@@ -2,4 +2,5 @@
     <string name="app_name">Dzen</string>
     <string name="category_information">Отметьте то, что вам интересно, чтобы настроить Дзен</string>
     <string name="later">Позже</string>
+    <string name="proceed">Продолжить</string>
 </resources>

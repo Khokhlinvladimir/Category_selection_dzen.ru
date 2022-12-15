@@ -24,5 +24,33 @@ class Repository(private val categoriesDao: CategoriesDao) {
         categoriesDao.deleteByCategory(category)
     }
 
-
+    val listCategories: MutableList<String>
+        get() {
+            return mutableListOf(
+                "Юмор",
+                "Еда",
+                "Кино",
+                "Рестораны",
+                "Прогулки",
+                "Политика",
+                "Новости",
+                "Автомобили",
+                "Сериалы",
+                "Рецепты",
+                "Работа",
+                "Отдых",
+                "Спорт",
+                "Политика",
+                "Новости",
+                "Юмор",
+                "Еда",
+                "Кино",
+                "Рестораны",
+                "Прогулки",
+                "Политика",
+                "Новости",
+                "Юмор",
+                "Еда",
+                "Кино")
+        }
 }

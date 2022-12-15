@@ -86,6 +86,9 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
 
         holder.setData(tag, shouldMeasure)
 
+        holder.setClickListener(tag, onTaggableClickListener)
+
+
         if (shouldMeasure)
             measureHelper.measure(holder.binding, tag)
     }
@@ -148,5 +151,14 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
 
         }
 
+        fun setClickListener(tag: Tag, onTaggableClickListener: OnTaggableClickListener?) {
+            onTaggableClickListener?.let {
+                binding.chipHolder.setOnClickListener {
+                    onTaggableClickListener.onTaggableClick(tag)
+                }
+            }
+        }
     }
+
+
 }

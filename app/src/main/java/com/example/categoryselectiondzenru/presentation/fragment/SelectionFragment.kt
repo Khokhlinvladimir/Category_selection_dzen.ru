@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +17,9 @@ import com.example.categoryselectiondzenru.presentation.CatViewModel
 import com.example.categoryselectiondzenru.presentation.CatViewModelFactory
 import com.example.categoryselectiondzenru.presentation.activity.MainActivity
 import com.example.categoryselectiondzenru.presentation.adapter.Selection
+import com.example.categoryselectiondzenru.presentation.adapter.Tag
 import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
+import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnTaggableClickListener
 import com.example.categoryselectiondzenru.presentation.adapter.mapper.MyItem
 import com.example.categoryselectiondzenru.presentation.adapter.mapper.MyItemMapper
 
@@ -53,6 +56,13 @@ class SelectionFragment : Fragment() {
             val layoutManager = LinearLayoutManager(requireContext())
             recyclerView.adapter = adapter
             recyclerView.layoutManager = layoutManager
+
+            adapter.onTaggableClickListener = object : OnTaggableClickListener {
+                override fun onTaggableClick(taggable: Tag) {
+                    Toast.makeText(requireContext(), "Clicked on: ${taggable.title}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
 
 

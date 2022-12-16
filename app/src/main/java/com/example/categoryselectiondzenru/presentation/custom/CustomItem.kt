@@ -9,8 +9,8 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import androidx.core.content.ContextCompat
-import kotlin.math.max
 import com.example.categoryselectiondzenru.R
+import kotlin.math.max
 
 class CustomItem(
     context: Context,
@@ -22,14 +22,19 @@ class CustomItem(
     private lateinit var onPaint: Paint
     private lateinit var defPaint: Paint
     private lateinit var textPaint: Paint
+    private lateinit var linePaint: Paint
+    private lateinit var plusPaint: Paint
     private var onColor = ContextCompat.getColor(context, R.color.button_on_color)
     private var defColor =  ContextCompat.getColor(context, R.color.button_def_color)
     private var textColor =  ContextCompat.getColor(context, R.color.white)
+    private var lineColor =  ContextCompat.getColor(context, R.color.text_header_color)
     private val rect: RectF = RectF(0f, 0f, 0f, 0f)
-    private var centerX: Float = 0f
-    private var centerY: Float = 0f
-    private var radius: Float = 0f
-    private var textSize: Float = 0f
+    private val rectWidth: Int = 200
+    private val rectHeight: Int = 120
+    private var startX: Float = 0f
+    private var startY: Float = 0f
+    private var textSize: Int = 150
+    private var corner: Float = 32F
 
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -42,11 +47,10 @@ class CustomItem(
         initPaints()
         initAttributes(attributesSet, defStyleAttr, defStyleRes)
 
-        if (isInEditMode) {
-            centerX= (width / 4).toFloat()
-            centerY= (height / 4).toFloat()
-            radius = 10f
-        }
+      /*  if (isInEditMode) {
+            startX= 0f
+            startY= 0f
+        }*/
     }
 
     private fun initAttributes(attributesSet: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
@@ -76,43 +80,51 @@ class CustomItem(
         }
 
        textPaint =  Paint(Paint.ANTI_ALIAS_FLAG)
-        defPaint.apply {
-            color = defColor
+        textPaint.apply {
+            color = textColor
             style = Paint.Style.FILL
-            strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, resources.displayMetrics)
+            textSize = 50f
+        }
+
+        linePaint =  Paint(Paint.ANTI_ALIAS_FLAG)
+        linePaint.apply {
+            color = lineColor
+            style = Paint.Style.FILL
+            strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources.displayMetrics)
+        }
+
+        plusPaint =  Paint(Paint.ANTI_ALIAS_FLAG)
+        plusPaint.apply {
+            color = textColor
+            style = Paint.Style.FILL
+            strokeCap = Paint.Cap.ROUND
+            strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2.5f, resources.displayMetrics)
         }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+
         val minWidth = suggestedMinimumWidth + paddingLeft + paddingRight
         val minHeight = suggestedMinimumHeight + paddingTop + paddingBottom
 
-        val desiredCellSizeInPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DESIRED_CELL_SIZE,
-            resources.displayMetrics).toInt()
-
-        val desiredWith = max(minWidth,  desiredCellSizeInPixels + paddingLeft + paddingRight)
-        val desiredHeight = max(minHeight,  desiredCellSizeInPixels + paddingTop + paddingBottom)
+        val desiredWidth = max(minWidth,  rectWidth + textSize + paddingLeft + paddingRight)
+        val desiredHeight = max(minHeight,  rectHeight + paddingTop + paddingBottom)
 
         setMeasuredDimension(
-            resolveSize(desiredWith, widthMeasureSpec),
-            resolveSize(desiredHeight, heightMeasureSpec)
-        )
+            resolveSize(desiredWidth, widthMeasureSpec),
+            resolveSize(desiredHeight, heightMeasureSpec))
     }
 
 
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        centerX = (w/10).toFloat()
-        centerY = 0f
-
-        radius = if (w > h) { h / 10f } else { w / 10f }
-
-        textSize = 150f
 
 
-        rect.set(centerX - radius, centerY, centerX + textSize,
-            radius)
+
+
+        rect.set(startX, startY, rectWidth.toFloat() + textSize,
+            rectHeight.toFloat())
     }
 
 
@@ -122,20 +134,33 @@ class CustomItem(
 
         drawButton(canvas)
 
+        drawLine(canvas)
 
+        drawText(canvas)
 
-     //   drawText(canvas)
+        drawPlus(canvas)
 
     }
 
     private fun drawButton(canvas: Canvas){
+        canvas.drawRoundRect(rect, corner, corner, defPaint)
+    }
 
-        canvas.drawRoundRect(rect, 32F, 32F, defPaint)
-      //  canvas.drawLine()
+    private fun drawLine(canvas: Canvas){
+        canvas.drawLine(textSize + 60f, 25f, textSize + 60f, rectHeight -25f, linePaint)
     }
 
 
-    private fun drawText(canvas: Canvas){}
+    private fun drawText(canvas: Canvas){
+        canvas.drawText("Кино", startX + 40f, rectHeight/2f+15f, textPaint)
+    }
+
+    private fun drawPlus(canvas: Canvas){
+        canvas.drawLine(textSize + rectWidth - 70f, 35f, textSize + rectWidth - 70f, rectHeight -35f, plusPaint)
+        canvas.drawLine(textSize + rectWidth - 70f, rectHeight/2f, textSize + rectWidth.toFloat(), rectHeight/2f, plusPaint)
+    }
+
+
 
 
 

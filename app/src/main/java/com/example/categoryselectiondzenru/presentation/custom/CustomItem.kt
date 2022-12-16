@@ -23,7 +23,7 @@ class CustomItem(
     private lateinit var defPaint: Paint
     private lateinit var textPaint: Paint
     private lateinit var linePaint: Paint
-    private lateinit var plusPaint: Paint
+    private lateinit var checkPaint: Paint
     private var onColor = ContextCompat.getColor(context, R.color.button_on_color)
     private var defColor =  ContextCompat.getColor(context, R.color.button_def_color)
     private var textColor =  ContextCompat.getColor(context, R.color.white)
@@ -35,7 +35,8 @@ class CustomItem(
     private var startY: Float = 0f
     private var textSize: Int = 130
     private var corner: Float = 32F
-    private var text = "Киношка"
+    private var valuePlus: Float = 25f
+    var text = "Киношка"
 
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -95,8 +96,8 @@ class CustomItem(
             strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources.displayMetrics)
         }
 
-        plusPaint =  Paint(Paint.ANTI_ALIAS_FLAG)
-        plusPaint.apply {
+        checkPaint =  Paint(Paint.ANTI_ALIAS_FLAG)
+        checkPaint.apply {
             color = textColor
             style = Paint.Style.FILL
             strokeCap = Paint.Cap.ROUND
@@ -107,7 +108,6 @@ class CustomItem(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
         textSize = ((text.length) * 32.5).toInt()
-
 
         val minWidth = suggestedMinimumWidth + paddingLeft + paddingRight
         val minHeight = suggestedMinimumHeight + paddingTop + paddingBottom
@@ -125,13 +125,8 @@ class CustomItem(
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
-
-
-
         rect.set(startX, startY, rectWidth.toFloat() + textSize,
             rectHeight.toFloat())
-
-
     }
 
 
@@ -145,9 +140,9 @@ class CustomItem(
 
         drawText(canvas)
 
-        //  drawPlus(canvas)
+          drawPlus(canvas)
 
-          drawCheck(canvas)
+        //  drawCheck(canvas)
 
     }
 
@@ -164,18 +159,27 @@ class CustomItem(
         canvas.drawText(text, startX + 30f, rectHeight/2f+18f, textPaint)
     }
 
+
+
+
     private fun drawPlus(canvas: Canvas){
 
         val verticalX = textSize + rectWidth - 70f
-        val startVerticalY = 35f
-        val stopVerticalY = rectHeight -35f
+        val centerY = rectHeight / 2f
 
-        canvas.drawLine(verticalX, startVerticalY, verticalX, stopVerticalY , plusPaint)
+
+
+
+
+        canvas.drawLine(verticalX, centerY-valuePlus, verticalX, centerY+valuePlus , checkPaint)
+
+
+
         val verticalY = rectHeight/2f
         val startHorizontalX = verticalX - (rectHeight-70)/2f
         val stopHorizontalX = verticalX + (rectHeight-70)/2f
 
-        canvas.drawLine(startHorizontalX, verticalY, stopHorizontalX, verticalY, plusPaint)
+        canvas.drawLine(startHorizontalX, verticalY, stopHorizontalX, verticalY, checkPaint)
     }
 
     private fun drawCheck(canvas: Canvas){
@@ -186,7 +190,7 @@ class CustomItem(
         val startVerticalY = rectHeight -55f
         val stopVerticalY = rectHeight -40f
 
-        canvas.drawLine(startVerticalX, startVerticalY, stopVerticalX, stopVerticalY , plusPaint)
+        canvas.drawLine(startVerticalX, startVerticalY, stopVerticalX, stopVerticalY , checkPaint)
 
         val startHorizontalX = textSize + rectWidth - 35f
         val stopHorizontalX = textSize + rectWidth - 70f
@@ -194,16 +198,30 @@ class CustomItem(
         val startHorizontalY = rectHeight -80f
         val stopHorizontalY = rectHeight -40f
 
-        canvas.drawLine(startHorizontalX, startHorizontalY, stopHorizontalX, stopHorizontalY, plusPaint)
+        canvas.drawLine(startHorizontalX, startHorizontalY, stopHorizontalX, stopHorizontalY, checkPaint)
     }
 
+  /*  fun plusAnimate (){
+        val animator = ObjectAnimator.ofFloat(this, "value", 0f, valueProgress)
+        animator.apply {
+            duration = 700
+            DecelerateInterpolator()
+            start()
+        }
+    }*/
 
+    private fun clickListener(){
+
+        this.setOnClickListener {
+
+        }
+
+    }
 
 
 
     companion object {
         const val OPTION1_DEFAULT_COLOR = Color.GREEN
         const val OPTION2_DEFAULT_COLOR = Color.RED
-        const val DESIRED_CELL_SIZE = 250f
     }
 }

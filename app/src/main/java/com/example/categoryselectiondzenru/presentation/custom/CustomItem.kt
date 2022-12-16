@@ -33,9 +33,9 @@ class CustomItem(
     private val rectHeight: Int = 120
     private var startX: Float = 0f
     private var startY: Float = 0f
-    private var textSize: Int = 150
+    private var textSize: Int = 130
     private var corner: Float = 32F
-    private var text = "Кино"
+    private var text = "Киношка"
 
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -106,6 +106,9 @@ class CustomItem(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
+        textSize = ((text.length) * 32.5).toInt()
+
+
         val minWidth = suggestedMinimumWidth + paddingLeft + paddingRight
         val minHeight = suggestedMinimumHeight + paddingTop + paddingBottom
 
@@ -127,6 +130,8 @@ class CustomItem(
 
         rect.set(startX, startY, rectWidth.toFloat() + textSize,
             rectHeight.toFloat())
+
+
     }
 
 

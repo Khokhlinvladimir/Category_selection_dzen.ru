@@ -35,6 +35,7 @@ class CustomItem(
     private var startY: Float = 0f
     private var textSize: Int = 150
     private var corner: Float = 32F
+    private var text = "Кино"
 
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -90,6 +91,7 @@ class CustomItem(
         linePaint.apply {
             color = lineColor
             style = Paint.Style.FILL
+            strokeCap = Paint.Cap.ROUND
             strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources.displayMetrics)
         }
 
@@ -138,9 +140,9 @@ class CustomItem(
 
         drawText(canvas)
 
-      //  drawPlus(canvas)
+        //  drawPlus(canvas)
 
-        drawCheck(canvas)
+          drawCheck(canvas)
 
     }
 
@@ -154,7 +156,7 @@ class CustomItem(
 
 
     private fun drawText(canvas: Canvas){
-        canvas.drawText("Кино", startX + 30f, rectHeight/2f+18f, textPaint)
+        canvas.drawText(text, startX + 30f, rectHeight/2f+18f, textPaint)
     }
 
     private fun drawPlus(canvas: Canvas){

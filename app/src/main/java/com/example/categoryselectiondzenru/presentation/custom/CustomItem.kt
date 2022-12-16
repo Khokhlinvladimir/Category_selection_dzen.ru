@@ -138,7 +138,9 @@ class CustomItem(
 
         drawText(canvas)
 
-        drawPlus(canvas)
+      //  drawPlus(canvas)
+
+        drawCheck(canvas)
 
     }
 
@@ -167,6 +169,25 @@ class CustomItem(
         val stopHorizontalX = verticalX + (rectHeight-70)/2f
 
         canvas.drawLine(startHorizontalX, verticalY, stopHorizontalX, verticalY, plusPaint)
+    }
+
+    private fun drawCheck(canvas: Canvas){
+
+        val startVerticalX = textSize + rectWidth - 90f
+        val stopVerticalX = textSize + rectWidth - 70f
+
+        val startVerticalY = rectHeight -55f
+        val stopVerticalY = rectHeight -40f
+
+        canvas.drawLine(startVerticalX, startVerticalY, stopVerticalX, stopVerticalY , plusPaint)
+
+        val startHorizontalX = textSize + rectWidth - 35f
+        val stopHorizontalX = textSize + rectWidth - 70f
+
+        val startHorizontalY = rectHeight -80f
+        val stopHorizontalY = rectHeight -40f
+
+        canvas.drawLine(startHorizontalX, startHorizontalY, stopHorizontalX, stopHorizontalY, plusPaint)
     }
 
 

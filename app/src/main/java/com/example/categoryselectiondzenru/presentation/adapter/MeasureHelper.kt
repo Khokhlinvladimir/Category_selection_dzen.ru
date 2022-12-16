@@ -2,6 +2,7 @@ package com.example.categoryselectiondzenru.presentation.adapter
 
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
 import com.example.categoryselectiondzenru.databinding.RowTagBinding
 
 class MeasureHelper(
@@ -35,7 +36,7 @@ class MeasureHelper(
             adapter.measuringDone = true
     }
 
-    fun measure(holder: RowTagBinding, tag: Tag) {
+    fun measure(holder: CategoryItemBinding, tag: Tag) {
 
         val itemView = holder.root.apply {
             layoutParams.height = 1
@@ -49,10 +50,10 @@ class MeasureHelper(
 
 
                 val marginTotal =
-                    (holder.chipHolder.layoutParams as ViewGroup.MarginLayoutParams).marginStart * 2
+                    (holder.mCustom.layoutParams as ViewGroup.MarginLayoutParams).marginStart * 2
 
 
-                val span = (holder.chipHolder.width + marginTotal) / baseCell
+                val span = (holder.mCustom.width + marginTotal) / baseCell
 
                 measuredCount++
 

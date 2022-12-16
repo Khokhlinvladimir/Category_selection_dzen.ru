@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.categoryselectiondzenru.R
+import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
 import com.example.categoryselectiondzenru.databinding.RowTagBinding
 
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnTaggableClickListener
@@ -72,7 +73,7 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = RowTagBinding.inflate(inflater, parent, false)
+        val binding = CategoryItemBinding.inflate(inflater, parent, false)
 
         return Holder(binding)
     }
@@ -101,24 +102,24 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
 
 
 
-    inner class Holder(val binding: RowTagBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class Holder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun setData(tag: Tag, shouldMeasure: Boolean) {
 
-            val myItemBinding = binding.myItem
+            val myItemBinding = binding.mCustom
 
-            myItemBinding.text.text = "${tag.title} "
+            myItemBinding.text = "${tag.title} "
 
 
 
-            binding.chipHolder.apply {
+            binding.mCustom.apply {
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
             }
 
-            if (!shouldMeasure)
-                binding.chipHolder.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
-
-            binding.chipHolder.setOnClickListener {
+            if (!shouldMeasure) {
+                binding.mCustom.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
+            }
+            binding.mCustom.setOnClickListener {
 
                 if (selection == Selection.MULTI_SELECTION) {
                     tag.checked = !tag.checked
@@ -134,7 +135,7 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
                 }
             }
 
-            if (tag.checked) {
+          /*  if (tag.checked) {
                 myItemBinding.cardHolder.background = ResourcesCompat.getDrawable(itemView.resources, R.drawable.custom_selected_card_shape, null)
 
                 myItemBinding.text.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
@@ -147,15 +148,15 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
 
                 myItemBinding.text.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
                 myItemBinding.checkedImgv.visibility = View.INVISIBLE
-            }
+            }*/
 
         }
 
         fun setClickListener(tag: Tag, onTaggableClickListener: OnTaggableClickListener?) {
             onTaggableClickListener?.let {
-                binding.chipHolder.setOnClickListener {
+             /*   binding.chipHolder.setOnClickListener {
                     onTaggableClickListener.onTaggableClick(tag)
-                }
+                }*/
             }
         }
     }

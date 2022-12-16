@@ -1,5 +1,6 @@
 package com.example.categoryselectiondzenru.presentation.custom
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -8,6 +9,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import androidx.core.content.ContextCompat
 import com.example.categoryselectiondzenru.R
 import kotlin.math.max
@@ -48,7 +50,7 @@ class CustomItem(
     init {
         initPaints()
         initAttributes(attributesSet, defStyleAttr, defStyleRes)
-
+        clickListener()
       /*  if (isInEditMode) {
             startX= 0f
             startY= 0f
@@ -144,6 +146,7 @@ class CustomItem(
 
         //  drawCheck(canvas)
 
+        invalidate()
     }
 
     private fun drawButton(canvas: Canvas){
@@ -160,27 +163,25 @@ class CustomItem(
     }
 
 
-
-
     private fun drawPlus(canvas: Canvas){
 
         val verticalX = textSize + rectWidth - 70f
         val centerY = rectHeight / 2f
 
+        canvas.drawLine(verticalX, centerY - valuePlus, verticalX, centerY + valuePlus , checkPaint)
 
-
-
-
-        canvas.drawLine(verticalX, centerY-valuePlus, verticalX, centerY+valuePlus , checkPaint)
-
-
-
-        val verticalY = rectHeight/2f
-        val startHorizontalX = verticalX - (rectHeight-70)/2f
-        val stopHorizontalX = verticalX + (rectHeight-70)/2f
-
-        canvas.drawLine(startHorizontalX, verticalY, stopHorizontalX, verticalY, checkPaint)
+        canvas.drawLine(verticalX - valuePlus, centerY, verticalX + valuePlus, centerY, checkPaint)
     }
+
+    private fun plusAnimate (){
+        val animator = ObjectAnimator.ofFloat(this, "valuePlus", valuePlus, 0f)
+        animator.apply {
+            duration = 700
+            DecelerateInterpolator()
+            start()
+        }
+    }
+
 
     private fun drawCheck(canvas: Canvas){
 
@@ -201,19 +202,12 @@ class CustomItem(
         canvas.drawLine(startHorizontalX, startHorizontalY, stopHorizontalX, stopHorizontalY, checkPaint)
     }
 
-  /*  fun plusAnimate (){
-        val animator = ObjectAnimator.ofFloat(this, "value", 0f, valueProgress)
-        animator.apply {
-            duration = 700
-            DecelerateInterpolator()
-            start()
-        }
-    }*/
+
 
     private fun clickListener(){
 
         this.setOnClickListener {
-
+            plusAnimate ()
         }
 
     }

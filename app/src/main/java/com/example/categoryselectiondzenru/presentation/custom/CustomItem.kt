@@ -152,12 +152,21 @@ class CustomItem(
 
 
     private fun drawText(canvas: Canvas){
-        canvas.drawText("Кино", startX + 40f, rectHeight/2f+15f, textPaint)
+        canvas.drawText("Кино", startX + 30f, rectHeight/2f+18f, textPaint)
     }
 
     private fun drawPlus(canvas: Canvas){
-        canvas.drawLine(textSize + rectWidth - 70f, 35f, textSize + rectWidth - 70f, rectHeight -35f, plusPaint)
-        canvas.drawLine(textSize + rectWidth - 70f, rectHeight/2f, textSize + rectWidth.toFloat(), rectHeight/2f, plusPaint)
+
+        val verticalX = textSize + rectWidth - 70f
+        val startVerticalY = 35f
+        val stopVerticalY = rectHeight -35f
+
+        canvas.drawLine(verticalX, startVerticalY, verticalX, stopVerticalY , plusPaint)
+        val verticalY = rectHeight/2f
+        val startHorizontalX = verticalX - (rectHeight-70)/2f
+        val stopHorizontalX = verticalX + (rectHeight-70)/2f
+
+        canvas.drawLine(startHorizontalX, verticalY, stopHorizontalX, verticalY, plusPaint)
     }
 
 

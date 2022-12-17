@@ -35,12 +35,15 @@ class CustomItem(
     private var startX: Float = 0f
     private var startY: Float = 0f
     private var textSize: Int = 130
-    private var corner: Float = 32F
+    private var corner: Float = 40f
     private var valuePlus: Float = 25f
     private var radiusButton: Float = 0f
+    private var alphaAnimation: Int = 300
+
 
     private var animatorPlus: ValueAnimator? = null
     private var animatorButton: ValueAnimator? = null
+    private var animatorAlpha: ValueAnimator? = null
     var text = "Кинотеатр"
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -181,6 +184,7 @@ class CustomItem(
 
     private fun drawLine(canvas: Canvas){
         canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, linePaint)
+        linePaint.alpha = alphaAnimation
     }
 
 
@@ -191,13 +195,14 @@ class CustomItem(
 
     private fun drawPlus(canvas: Canvas){
 
-
         val verticalX = rectWidth  - 50f
         val centerY = rectHeight / 2f
 
         canvas.drawLine(verticalX, centerY - valuePlus, verticalX, centerY + valuePlus , checkPaint)
 
         canvas.drawLine(verticalX - valuePlus, centerY, verticalX + valuePlus, centerY, checkPaint)
+
+        checkPaint.alpha = alphaAnimation
 
     }
 
@@ -208,7 +213,6 @@ class CustomItem(
             interpolator = LinearInterpolator()
             addUpdateListener { valueAnimator ->
                 valuePlus = (valueAnimator.animatedValue as Int).toFloat()
-                invalidate()
             }
         }
         animatorPlus?.start()
@@ -219,7 +223,7 @@ class CustomItem(
         animatorButton?.cancel()
         animatorButton = ValueAnimator.ofInt(0, rectWidth).apply {
             startDelay = 200
-            duration = 1000
+            duration = 200
             interpolator = LinearInterpolator()
             addUpdateListener { valueAnimator ->
                 radiusButton = (valueAnimator.animatedValue as Int).toFloat()
@@ -227,6 +231,21 @@ class CustomItem(
             }
         }
         animatorButton?.start()
+    }
+
+
+    private fun alphaAnimation() {
+        animatorAlpha?.cancel()
+        animatorAlpha = ValueAnimator.ofInt(alphaAnimation, 0).apply {
+            startDelay = 200
+            duration = 10
+            interpolator = LinearInterpolator()
+            addUpdateListener { valueAnimator ->
+                alphaAnimation = valueAnimator.animatedValue as Int
+                invalidate()
+            }
+        }
+        animatorAlpha?.start()
     }
 
 
@@ -257,6 +276,7 @@ class CustomItem(
 
             MotionEvent.ACTION_UP -> {
                 plusAnimation()
+                alphaAnimation()
                 buttonAnimation()
                 invalidate()
 

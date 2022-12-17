@@ -1,21 +1,16 @@
 package com.example.categoryselectiondzenru.presentation.custom
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
-import android.net.wifi.p2p.WifiP2pManager
+import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import com.example.categoryselectiondzenru.R
+import kotlinx.coroutines.delay
 import kotlin.math.max
 
 class CustomItem(
@@ -42,9 +37,11 @@ class CustomItem(
     private var textSize: Int = 130
     private var corner: Float = 32F
     private var valuePlus: Float = 25f
-    private var animator: ValueAnimator? = null
+    private var radiusButton: Float = 0f
+
+    private var animatorPlus: ValueAnimator? = null
+    private var animatorButton: ValueAnimator? = null
     var text = "Кинотеатр"
-    private var currentSweepAngle = 25
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
 
@@ -116,6 +113,8 @@ class CustomItem(
 
         textSize = ((text.length) * 32.5).toInt()
 
+
+
         val minWidth = suggestedMinimumWidth + paddingLeft + paddingRight
         val minHeight = suggestedMinimumHeight + paddingTop + paddingBottom
 
@@ -125,6 +124,7 @@ class CustomItem(
         setMeasuredDimension(
             resolveSize(desiredWidth, widthMeasureSpec),
             resolveSize(desiredHeight, heightMeasureSpec))
+
 
     }
 
@@ -160,8 +160,24 @@ class CustomItem(
     }
 
     private fun drawButton(canvas: Canvas){
-        canvas.drawRoundRect(rect, corner, corner, defPaint)
+
+        val path = Path().apply {
+            addRoundRect(rect, corner, corner, Path.Direction.CW)
+        }
+
+        canvas.drawPath(path, defPaint)
+
+        canvas.clipPath(path)
+
+        val verticalX = rectWidth  - 50f
+        val centerY = rectHeight / 2f
+
+        canvas.drawCircle(verticalX, centerY, radiusButton, onPaint)
+
+  //   canvas.drawRoundRect(rect, corner, corner, defPaint)
     }
+
+
 
     private fun drawLine(canvas: Canvas){
         canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, linePaint)
@@ -179,25 +195,38 @@ class CustomItem(
         val verticalX = rectWidth  - 50f
         val centerY = rectHeight / 2f
 
-        val valuePlus = currentSweepAngle
-
         canvas.drawLine(verticalX, centerY - valuePlus, verticalX, centerY + valuePlus , checkPaint)
 
         canvas.drawLine(verticalX - valuePlus, centerY, verticalX + valuePlus, centerY, checkPaint)
 
     }
 
-    private fun startAnimation() {
-        animator?.cancel()
-        animator = ValueAnimator.ofInt(25, 0).apply {
+    private fun plusAnimation() {
+        animatorPlus?.cancel()
+        animatorPlus = ValueAnimator.ofInt(25, 0).apply {
             duration = 200
             interpolator = LinearInterpolator()
             addUpdateListener { valueAnimator ->
-                currentSweepAngle = valueAnimator.animatedValue as Int
+                valuePlus = (valueAnimator.animatedValue as Int).toFloat()
                 invalidate()
             }
         }
-        animator?.start()
+        animatorPlus?.start()
+    }
+
+
+    private fun buttonAnimation() {
+        animatorButton?.cancel()
+        animatorButton = ValueAnimator.ofInt(0, rectWidth).apply {
+            startDelay = 200
+            duration = 1000
+            interpolator = LinearInterpolator()
+            addUpdateListener { valueAnimator ->
+                radiusButton = (valueAnimator.animatedValue as Int).toFloat()
+                invalidate()
+            }
+        }
+        animatorButton?.start()
     }
 
 
@@ -227,7 +256,8 @@ class CustomItem(
             MotionEvent.ACTION_DOWN -> return true
 
             MotionEvent.ACTION_UP -> {
-                startAnimation()
+                plusAnimation()
+                buttonAnimation()
                 invalidate()
 
             }

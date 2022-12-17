@@ -38,7 +38,7 @@ class CustomItem(
     private var textSize: Int = 130
     private var corner: Float = 32F
     private var valuePlus: Float = 25f
-    var text = "Кино"
+    var text = "Кинотеатр"
 
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -146,9 +146,9 @@ class CustomItem(
 
         drawText(canvas)
 
-          drawPlus(canvas)
+        //   drawPlus(canvas)
 
-        //  drawCheck(canvas)
+          drawCheck(canvas)
 
         invalidate()
     }
@@ -190,21 +190,21 @@ class CustomItem(
 
     private fun drawCheck(canvas: Canvas){
 
-        val startVerticalX = textSize + rectWidth - 90f
-        val stopVerticalX = textSize + rectWidth - 70f
 
+        val bottomX = rectWidth - 70f
+        val bottomY = rectHeight -40f
+
+        val startVerticalX = rectWidth - 85f
         val startVerticalY = rectHeight -55f
-        val stopVerticalY = rectHeight -40f
 
-        canvas.drawLine(startVerticalX, startVerticalY, stopVerticalX, stopVerticalY , checkPaint)
 
-        val startHorizontalX = textSize + rectWidth - 35f
-        val stopHorizontalX = textSize + rectWidth - 70f
+        canvas.drawLine(startVerticalX, startVerticalY, bottomX, bottomY , checkPaint)
 
-        val startHorizontalY = rectHeight -80f
-        val stopHorizontalY = rectHeight -40f
+        val startHorizontalX = rectWidth - 35f
+        val startHorizontalY = rectHeight -75f
 
-        canvas.drawLine(startHorizontalX, startHorizontalY, stopHorizontalX, stopHorizontalY, checkPaint)
+
+        canvas.drawLine(startHorizontalX, startHorizontalY, bottomX, bottomY, checkPaint)
     }
 
 

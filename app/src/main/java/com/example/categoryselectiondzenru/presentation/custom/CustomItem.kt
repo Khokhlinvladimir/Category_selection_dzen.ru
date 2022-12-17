@@ -38,7 +38,10 @@ class CustomItem(
     private var corner: Float = 40f
     private var valuePlus: Float = 25f
     private var radiusButton: Float = 0f
-    private var alphaAnimation: Int = 300
+    private var alphaAnimation: Int = 255
+    private var counter: Int = 0
+    private var centerX: Float = 0f
+    private var centerY: Float = 0f
 
 
     private var animatorPlus: ValueAnimator? = null
@@ -140,6 +143,9 @@ class CustomItem(
             rectHeight.toFloat())
 
         rectWidth += (textSize * 0.85).toInt()
+
+        centerX = rectWidth  - 50f
+        centerY = rectHeight / 2f
     }
 
 
@@ -157,7 +163,7 @@ class CustomItem(
 
         drawPlus(canvas)
 
-        //  drawCheck(canvas)
+        // drawCheck(canvas)
 
         invalidate()
     }
@@ -172,19 +178,15 @@ class CustomItem(
 
         canvas.clipPath(path)
 
-        val verticalX = rectWidth  - 50f
-        val centerY = rectHeight / 2f
+        canvas.drawCircle(centerX, centerY, radiusButton, onPaint)
 
-        canvas.drawCircle(verticalX, centerY, radiusButton, onPaint)
-
-  //   canvas.drawRoundRect(rect, corner, corner, defPaint)
     }
 
 
 
     private fun drawLine(canvas: Canvas){
-        canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, linePaint)
         linePaint.alpha = alphaAnimation
+        canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, linePaint)
     }
 
 
@@ -194,21 +196,16 @@ class CustomItem(
 
 
     private fun drawPlus(canvas: Canvas){
-
-        val verticalX = rectWidth  - 50f
-        val centerY = rectHeight / 2f
-
-        canvas.drawLine(verticalX, centerY - valuePlus, verticalX, centerY + valuePlus , checkPaint)
-
-        canvas.drawLine(verticalX - valuePlus, centerY, verticalX + valuePlus, centerY, checkPaint)
-
         checkPaint.alpha = alphaAnimation
+        canvas.drawLine(centerX, centerY - valuePlus, centerX, centerY + valuePlus , checkPaint)
+
+        canvas.drawLine(centerX - valuePlus, centerY, centerX + valuePlus, centerY, checkPaint)
 
     }
 
-    private fun plusAnimation() {
+    private fun plusAnimation(start: Int, end: Int) {
         animatorPlus?.cancel()
-        animatorPlus = ValueAnimator.ofInt(25, 0).apply {
+        animatorPlus = ValueAnimator.ofInt(start, end).apply {
             duration = 200
             interpolator = LinearInterpolator()
             addUpdateListener { valueAnimator ->
@@ -219,9 +216,9 @@ class CustomItem(
     }
 
 
-    private fun buttonAnimation() {
+    private fun buttonAnimation(start: Int, end: Int) {
         animatorButton?.cancel()
-        animatorButton = ValueAnimator.ofInt(0, rectWidth).apply {
+        animatorButton = ValueAnimator.ofInt(start, end).apply {
             startDelay = 200
             duration = 200
             interpolator = LinearInterpolator()
@@ -234,10 +231,10 @@ class CustomItem(
     }
 
 
-    private fun alphaAnimation() {
+    private fun alphaAnimation(start: Int, end: Int, value: Long) {
         animatorAlpha?.cancel()
-        animatorAlpha = ValueAnimator.ofInt(alphaAnimation, 0).apply {
-            startDelay = 200
+        animatorAlpha = ValueAnimator.ofInt(start, end).apply {
+            startDelay = value
             duration = 10
             interpolator = LinearInterpolator()
             addUpdateListener { valueAnimator ->
@@ -247,6 +244,8 @@ class CustomItem(
         }
         animatorAlpha?.start()
     }
+
+
 
 
     private fun drawCheck(canvas: Canvas){
@@ -271,13 +270,30 @@ class CustomItem(
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
+
+
+
+
+
         when(event.action){
             MotionEvent.ACTION_DOWN -> return true
 
             MotionEvent.ACTION_UP -> {
-                plusAnimation()
-                alphaAnimation()
-                buttonAnimation()
+
+                counter += 1
+
+                if (counter %2==0){
+                    plusAnimation(0, 25)
+                    alphaAnimation(0, 255, 0)
+                    buttonAnimation(rectWidth, 0)
+                }
+                else {
+                    plusAnimation(25, 0)
+                    buttonAnimation(0, rectWidth)
+                    alphaAnimation(255, 0, 200)
+
+                }
+
                 invalidate()
 
             }

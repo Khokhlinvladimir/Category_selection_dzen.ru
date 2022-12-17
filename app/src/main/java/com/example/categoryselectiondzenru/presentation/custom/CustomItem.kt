@@ -31,14 +31,14 @@ class CustomItem(
     private var textColor =  ContextCompat.getColor(context, R.color.white)
     private var lineColor =  ContextCompat.getColor(context, R.color.text_header_color)
     private val rect: RectF = RectF(0f, 0f, 0f, 0f)
-    private val rectWidth: Int = 200
-    private val rectHeight: Int = 120
+    private var rectWidth: Int = 180
+    private val rectHeight: Int = 110
     private var startX: Float = 0f
     private var startY: Float = 0f
     private var textSize: Int = 130
     private var corner: Float = 32F
     private var valuePlus: Float = 25f
-    var text = "Киношка"
+    var text = "Кино"
 
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -50,7 +50,7 @@ class CustomItem(
     init {
         initPaints()
         initAttributes(attributesSet, defStyleAttr, defStyleRes)
-        clickListener()
+        plusAnimate ()
       /*  if (isInEditMode) {
             startX= 0f
             startY= 0f
@@ -67,6 +67,7 @@ class CustomItem(
 
         typedArray.recycle()
     }
+
 
     private fun initPaints() {
         onPaint =  Paint(Paint.ANTI_ALIAS_FLAG)
@@ -87,7 +88,7 @@ class CustomItem(
         textPaint.apply {
             color = textColor
             style = Paint.Style.FILL
-            textSize = 50f
+            textSize = 47f
         }
 
         linePaint =  Paint(Paint.ANTI_ALIAS_FLAG)
@@ -114,12 +115,13 @@ class CustomItem(
         val minWidth = suggestedMinimumWidth + paddingLeft + paddingRight
         val minHeight = suggestedMinimumHeight + paddingTop + paddingBottom
 
-        val desiredWidth = max(minWidth,  rectWidth + textSize + paddingLeft + paddingRight)
+        val desiredWidth = max(minWidth,  rectWidth + (textSize * 0.85).toInt() + paddingLeft + paddingRight)
         val desiredHeight = max(minHeight,  rectHeight + paddingTop + paddingBottom)
 
         setMeasuredDimension(
             resolveSize(desiredWidth, widthMeasureSpec),
             resolveSize(desiredHeight, heightMeasureSpec))
+
     }
 
 
@@ -127,8 +129,10 @@ class CustomItem(
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
-        rect.set(startX, startY, rectWidth.toFloat() + textSize,
+        rect.set(startX, startY, rectWidth.toFloat() + (textSize * 0.85f),
             rectHeight.toFloat())
+
+        rectWidth += (textSize * 0.85).toInt()
     }
 
 
@@ -154,18 +158,19 @@ class CustomItem(
     }
 
     private fun drawLine(canvas: Canvas){
-        canvas.drawLine(textSize + 60f, 25f, textSize + 60f, rectHeight -25f, linePaint)
+        canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, linePaint)
     }
 
 
     private fun drawText(canvas: Canvas){
-        canvas.drawText(text, startX + 30f, rectHeight/2f+18f, textPaint)
+        canvas.drawText(text, startX + 30f, rectHeight/2f+14f, textPaint)
     }
 
 
     private fun drawPlus(canvas: Canvas){
 
-        val verticalX = textSize + rectWidth - 70f
+
+        val verticalX = rectWidth  - 50f
         val centerY = rectHeight / 2f
 
         canvas.drawLine(verticalX, centerY - valuePlus, verticalX, centerY + valuePlus , checkPaint)
@@ -174,9 +179,9 @@ class CustomItem(
     }
 
     private fun plusAnimate (){
-        val animator = ObjectAnimator.ofFloat(this, "valuePlus", valuePlus, 0f)
+        val animator = ObjectAnimator.ofFloat(this, "valuePlus", 0f, 25f)
         animator.apply {
-            duration = 700
+            duration = 5000
             DecelerateInterpolator()
             start()
         }

@@ -1,6 +1,7 @@
 package com.example.categoryselectiondzenru.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,8 +50,6 @@ class SelectionFragment : Fragment() {
             }
 
 
-
-
             val adapter = TagAdapter(mapper.mapFromEntityList(myItems), Selection.NON_SELECTABLE)
 
             val layoutManager = LinearLayoutManager(requireContext())
@@ -59,8 +58,7 @@ class SelectionFragment : Fragment() {
 
             adapter.onTaggableClickListener = object : OnTaggableClickListener {
                 override fun onTaggableClick(taggable: Tag) {
-                    Toast.makeText(requireContext(), "Clicked on: ${taggable.title}", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), " ${taggable.title}", Toast.LENGTH_SHORT).show()
                 }
             }
         }

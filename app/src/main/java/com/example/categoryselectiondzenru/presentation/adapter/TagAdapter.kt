@@ -5,13 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.categoryselectiondzenru.R
 import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
-import com.example.categoryselectiondzenru.databinding.RowTagBinding
-
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnTaggableClickListener
 import kotlin.properties.Delegates
 
@@ -108,7 +103,7 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
 
             val myItemBinding = binding.mCustom
 
-            myItemBinding.text = "${tag.title} "
+            myItemBinding.text = tag.title
 
 
 
@@ -119,6 +114,7 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
             if (!shouldMeasure) {
                 binding.mCustom.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
             }
+
             binding.mCustom.setOnClickListener {
 
                 if (selection == Selection.MULTI_SELECTION) {
@@ -135,28 +131,19 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
                 }
             }
 
-          /*  if (tag.checked) {
-                myItemBinding.cardHolder.background = ResourcesCompat.getDrawable(itemView.resources, R.drawable.custom_selected_card_shape, null)
-
-                myItemBinding.text.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-
-                myItemBinding.checkedImgv.visibility = View.VISIBLE
+            if (tag.checked) {
 
             } else {
 
-                myItemBinding.cardHolder.background = ResourcesCompat.getDrawable(itemView.resources, R.drawable.custom_un_selected_card_shape, null)
-
-                myItemBinding.text.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
-                myItemBinding.checkedImgv.visibility = View.INVISIBLE
-            }*/
+            }
 
         }
 
         fun setClickListener(tag: Tag, onTaggableClickListener: OnTaggableClickListener?) {
             onTaggableClickListener?.let {
-             /*   binding.chipHolder.setOnClickListener {
+                binding.mCustom.setOnClickListener {
                     onTaggableClickListener.onTaggableClick(tag)
-                }*/
+                }
             }
         }
     }

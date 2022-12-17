@@ -3,12 +3,8 @@ package com.example.categoryselectiondzenru.presentation.adapter
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
-import com.example.categoryselectiondzenru.databinding.RowTagBinding
 
-class MeasureHelper(
-    private val adapter: TagAdapter,
-    private val count: Int
-) {
+class MeasureHelper(private val adapter: TagAdapter, private val count: Int) {
 
     companion object {
         const val SPAN_COUNT = 52

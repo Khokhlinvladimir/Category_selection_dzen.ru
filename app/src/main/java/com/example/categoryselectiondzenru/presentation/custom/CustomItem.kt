@@ -1,15 +1,19 @@
 package com.example.categoryselectiondzenru.presentation.custom
 
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.net.wifi.p2p.WifiP2pManager
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import com.example.categoryselectiondzenru.R
 import kotlin.math.max
@@ -38,8 +42,9 @@ class CustomItem(
     private var textSize: Int = 130
     private var corner: Float = 32F
     private var valuePlus: Float = 25f
+    private var animator: ValueAnimator? = null
     var text = "Кинотеатр"
-
+    private var currentSweepAngle = 25
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
 
@@ -50,7 +55,6 @@ class CustomItem(
     init {
         initPaints()
         initAttributes(attributesSet, defStyleAttr, defStyleRes)
-        plusAnimate ()
       /*  if (isInEditMode) {
             startX= 0f
             startY= 0f
@@ -140,15 +144,17 @@ class CustomItem(
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
+
+
         drawButton(canvas)
 
         drawLine(canvas)
 
         drawText(canvas)
 
-        //   drawPlus(canvas)
+        drawPlus(canvas)
 
-          drawCheck(canvas)
+        //  drawCheck(canvas)
 
         invalidate()
     }
@@ -173,18 +179,25 @@ class CustomItem(
         val verticalX = rectWidth  - 50f
         val centerY = rectHeight / 2f
 
+        val valuePlus = currentSweepAngle
+
         canvas.drawLine(verticalX, centerY - valuePlus, verticalX, centerY + valuePlus , checkPaint)
 
         canvas.drawLine(verticalX - valuePlus, centerY, verticalX + valuePlus, centerY, checkPaint)
+
     }
 
-    private fun plusAnimate (){
-        val animator = ObjectAnimator.ofFloat(this, "valuePlus", 0f, 25f)
-        animator.apply {
-            duration = 5000
-            DecelerateInterpolator()
-            start()
+    private fun startAnimation() {
+        animator?.cancel()
+        animator = ValueAnimator.ofInt(25, 0).apply {
+            duration = 200
+            interpolator = LinearInterpolator()
+            addUpdateListener { valueAnimator ->
+                currentSweepAngle = valueAnimator.animatedValue as Int
+                invalidate()
+            }
         }
+        animator?.start()
     }
 
 
@@ -208,13 +221,18 @@ class CustomItem(
     }
 
 
+    override fun onTouchEvent(event: MotionEvent): Boolean {
 
-    private fun clickListener(){
+        when(event.action){
+            MotionEvent.ACTION_DOWN -> return true
 
-        this.setOnClickListener {
-            plusAnimate ()
+            MotionEvent.ACTION_UP -> {
+                startAnimation()
+                invalidate()
+
+            }
         }
-
+        return false
     }
 
 

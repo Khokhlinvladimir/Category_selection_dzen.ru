@@ -23,6 +23,7 @@ import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnTaggableClickListener
 import com.example.categoryselectiondzenru.presentation.adapter.mapper.MyItem
 import com.example.categoryselectiondzenru.presentation.adapter.mapper.MyItemMapper
+import com.example.categoryselectiondzenru.presentation.custom.CustomItem
 
 class SelectionFragment : Fragment() {
 

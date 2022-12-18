@@ -44,8 +44,6 @@ class CustomItem(
     private var counter: Int = 0
     private var centerX: Float = 0f
     private var centerY: Float = 0f
-
-
     private var animatorPlus: ValueAnimator? = null
     private var animatorButton: ValueAnimator? = null
     private var animatorCheck: ValueAnimator? = null
@@ -133,12 +131,9 @@ class CustomItem(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-
         rect.set(startX, startY, rectWidth.toFloat() + (textSize * 0.85f),
-            rectHeight.toFloat())
-
+        rectHeight.toFloat())
         rectWidth += (textSize * 0.85).toInt()
-
         centerX = rectWidth  - 50f
         centerY = rectHeight / 2f
     }
@@ -147,17 +142,11 @@ class CustomItem(
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-
         drawButton(canvas)
-
         drawLine(canvas)
-
         drawText(canvas)
-
         drawPlus(canvas)
-
         drawCheck(canvas)
-
         invalidate()
     }
 
@@ -166,13 +155,9 @@ class CustomItem(
         val path = Path().apply {
             addRoundRect(rect, corner, corner, Path.Direction.CW)
         }
-
         canvas.drawPath(path, defPaint)
-
         canvas.clipPath(path)
-
         canvas.drawCircle(centerX, centerY, radiusButton, onPaint)
-
     }
 
 
@@ -191,20 +176,15 @@ class CustomItem(
     private fun drawPlus(canvas: Canvas){
         checkPaint.alpha = alphaButton
         canvas.drawLine(centerX, centerY - valuePlus, centerX, centerY + valuePlus , checkPaint)
-
         canvas.drawLine(centerX - valuePlus, centerY, centerX + valuePlus, centerY, checkPaint)
 
     }
 
     private fun drawCheck(canvas: Canvas){
-
         checkPaint.alpha = alphaCheck
-
         val bottomX = rectWidth - 70f
         val bottomY = rectHeight -40f
-
         canvas.drawLine(bottomX - valueCheck, bottomY - valueCheck, bottomX, bottomY , checkPaint)
-
         canvas.drawLine(bottomX + valueCheck*2, bottomY - valueCheck*2, bottomX, bottomY, checkPaint)
     }
 

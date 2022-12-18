@@ -4,20 +4,20 @@ import android.view.*
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
-import com.example.categoryselectiondzenru.presentation.adapter.data.Tag
-import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnTaggableClickListener
+import com.example.categoryselectiondzenru.presentation.adapter.data.Category
+import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
 import com.example.categoryselectiondzenru.presentation.adapter.measuring.MeasureHelper
 import kotlin.properties.Delegates
 
-class TagAdapter(private var tagList: List<Tag>) : RecyclerView.Adapter<TagAdapter.Holder>() {
+class TagAdapter(private var categoryList: List<Category>) : RecyclerView.Adapter<TagAdapter.Holder>() {
 
-    private val measureHelper = MeasureHelper(this, tagList.size)
+    private val measureHelper = MeasureHelper(this, categoryList.size)
 
     private var recyclerView: RecyclerView? = null
 
     private var ready = false
 
-    var onTaggableClickListener: OnTaggableClickListener? = null
+    var onItemClickListener: OnItemClickListener? = null
 
     var measuringDone by Delegates.observable(false) { _, _, newVal ->
         if (newVal)
@@ -33,7 +33,7 @@ class TagAdapter(private var tagList: List<Tag>) : RecyclerView.Adapter<TagAdapt
 
             visibility = View.VISIBLE
 
-            tagList = measureHelper.getItems() as ArrayList<Tag>
+            categoryList = measureHelper.getItems() as ArrayList<Category>
 
             layoutManager = CustomGridLayoutManager(context, MeasureHelper.SPAN_COUNT, measureHelper.getSpans())
         }
@@ -74,13 +74,13 @@ class TagAdapter(private var tagList: List<Tag>) : RecyclerView.Adapter<TagAdapt
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
-        val tag = tagList[position]
+        val tag = categoryList[position]
 
         val shouldMeasure = measureHelper.shouldMeasure()
 
         holder.setData(tag, shouldMeasure)
 
-        holder.setClickListener(tag, onTaggableClickListener)
+        holder.setClickListener(tag, onItemClickListener)
 
 
         if (shouldMeasure)
@@ -88,7 +88,7 @@ class TagAdapter(private var tagList: List<Tag>) : RecyclerView.Adapter<TagAdapt
     }
 
 
-    override fun getItemCount() = if (ready) tagList.size else 0
+    override fun getItemCount() = if (ready) categoryList.size else 0
 
 
 
@@ -97,11 +97,11 @@ class TagAdapter(private var tagList: List<Tag>) : RecyclerView.Adapter<TagAdapt
 
     inner class Holder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun setData(tag: Tag, shouldMeasure: Boolean) {
+        fun setData(category: Category, shouldMeasure: Boolean) {
 
             val myItemBinding = binding.mCustom
 
-            myItemBinding.text = tag.title
+            myItemBinding.text = category.title
 
 
 
@@ -115,11 +115,11 @@ class TagAdapter(private var tagList: List<Tag>) : RecyclerView.Adapter<TagAdapt
 
         }
 
-        fun setClickListener(tag: Tag, onTaggableClickListener: OnTaggableClickListener?) {
-            onTaggableClickListener?.let {
+        fun setClickListener(category: Category, onItemClickListener: OnItemClickListener?) {
+            onItemClickListener?.let {
 
                 binding.mCustom.setOnClickListener {
-                    onTaggableClickListener.onTaggableClick(tag)
+                    onItemClickListener.onItemClick(category)
                 }
 
 

@@ -14,18 +14,14 @@ import com.example.categoryselectiondzenru.databinding.FragmentSelectionBinding
 import com.example.categoryselectiondzenru.presentation.CatViewModel
 import com.example.categoryselectiondzenru.presentation.CatViewModelFactory
 import com.example.categoryselectiondzenru.presentation.activity.MainActivity
-import com.example.categoryselectiondzenru.presentation.adapter.data.Tag
+import com.example.categoryselectiondzenru.presentation.adapter.data.Category
 import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
-import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnTaggableClickListener
-import com.example.categoryselectiondzenru.presentation.adapter.data.MyItem
-import com.example.categoryselectiondzenru.presentation.adapter.data.MyItemMapper
+import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
 
 class SelectionFragment : Fragment() {
 
     private var _binding: FragmentSelectionBinding? = null
     private val binding get() = _binding!!
-    private val myItems = ArrayList<MyItem>()
-    private val mapper = MyItemMapper()
 
     private val viewModel: CatViewModel by viewModels {
         CatViewModelFactory((requireActivity().application as App).repository)
@@ -39,30 +35,21 @@ class SelectionFragment : Fragment() {
 
         val recyclerView = binding.recyclerView
 
-        viewModel.getListCategories.observe(viewLifecycleOwner){
+      viewModel.getListCategories.observe(viewLifecycleOwner){
 
-            for (i in it.indices){
-                myItems.add(MyItem((i+1), it[i]))
-            }
-
-
-            val adapter = TagAdapter(mapper.mapFromEntityList(myItems))
+        val adapter = TagAdapter(it)
 
             val layoutManager = LinearLayoutManager(requireContext())
             recyclerView.adapter = adapter
             recyclerView.layoutManager = layoutManager
 
-            adapter.onTaggableClickListener = object : OnTaggableClickListener {
-                override fun onTaggableClick(taggable: Tag) {
-                    Toast.makeText(requireContext(), " ${taggable.title}", Toast.LENGTH_SHORT).show()
+            adapter.onItemClickListener = object : OnItemClickListener {
+                override fun onItemClick(category: Category) {
+                    Toast.makeText(requireContext(), " ${category.title}", Toast.LENGTH_SHORT).show()
                     Log.d("LOG", "selection click}")
                 }
             }
         }
-
-
-
-
 
         return binding.root
     }

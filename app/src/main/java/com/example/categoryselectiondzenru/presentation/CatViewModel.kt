@@ -3,14 +3,15 @@ package com.example.categoryselectiondzenru.presentation
 import androidx.lifecycle.*
 import com.example.categoryselectiondzenru.data.entity.Categories
 import com.example.categoryselectiondzenru.data.repository.Repository
+import com.example.categoryselectiondzenru.presentation.adapter.data.Category
 import kotlinx.coroutines.launch
 
 
 class CatViewModel(private val repository: Repository) : ViewModel() {
 
     val dataBaseCategories: LiveData<List<Categories>> = repository.allCategories.asLiveData()
-    private val listCategories = MutableLiveData<List<String>>()
-    val getListCategories: LiveData<List<String>> get() = listCategories
+    private val listCategories = MutableLiveData<List<Category>>()
+    val getListCategories: LiveData<List<Category>> get() = listCategories
 
     init {
         listCategories()

@@ -3,6 +3,7 @@ package com.example.categoryselectiondzenru.data.repository
 import androidx.annotation.WorkerThread
 import com.example.categoryselectiondzenru.data.db.CategoriesDao
 import com.example.categoryselectiondzenru.data.entity.Categories
+import com.example.categoryselectiondzenru.presentation.adapter.data.Category
 import kotlinx.coroutines.flow.Flow
 
 class Repository(private val categoriesDao: CategoriesDao) {
@@ -24,15 +25,34 @@ class Repository(private val categoriesDao: CategoriesDao) {
         categoriesDao.deleteByCategory(category)
     }
 
-    val listCategories: MutableList<String>
+    val listCategories: MutableList<Category>
         get() {
             return mutableListOf(
-                "Юмор", "Еда", "Кино", "Рестораны",
-                "Прогулки", "Политика", "Новости", "Автомобили",
-                "Сериалы", "Рецепты", "Работа", "Отдых",
-                "Спорт", "Политика", "Новости", "Юмор",
-                "Еда", "Кино", "Рестораны", "Прогулки",
-                "Политика", "Новости", "Юмор", "Еда",
-                "Еда", "Кино", "Рестораны", "Прогулки","Кино")
+               Category( "Юмор"),
+               Category("Еда"),
+                Category("Кино"),
+                Category("Рестораны"),
+                Category("Прогулки"),
+                Category("Политика"),
+                Category("Новости"),
+                Category("Автомобили"),
+                Category("Сериалы"),
+                Category("Рецепты"),
+                Category("Работа"),
+                Category("Отдых"),
+                Category("Спорт"),
+                Category("Политика"),
+                Category("Новости"),
+                Category("Юмор"),
+                Category("Еда"),
+                Category("Кино"),
+                Category("Рестораны"),
+                Category("Прогулки"),
+                Category("Политика"),
+                Category("Юмор"),
+                Category("Новости"),
+                Category("Отдых"),
+                Category("Еда"),
+                Category("Кино"))
         }
 }

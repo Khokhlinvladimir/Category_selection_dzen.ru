@@ -8,7 +8,13 @@ class CustomGridLayoutManager(context: Context, spanCount: Int, spanList: Mutabl
 
     init {
         spanSizeLookup = object : SpanSizeLookup() {
-            override fun getSpanSize(position: Int) = spanList[position]
+            override fun getSpanSize(position: Int): Int {
+                return if (position < spanList.size) {
+                    spanList[position]
+                } else {
+                    1
+                }
+            }
         }
     }
 }

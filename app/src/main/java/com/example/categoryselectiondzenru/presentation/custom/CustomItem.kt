@@ -9,7 +9,6 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.core.content.ContextCompat
 import com.example.categoryselectiondzenru.R
 import kotlin.math.max
 import kotlin.properties.Delegates
@@ -38,7 +37,7 @@ class CustomItem(
     private var startX: Float = 0f
     private var startY: Float = 0f
     private var textSize: Int = 130
-    private var corner: Float = 38f
+    private var roundedCorners by Delegates.notNull<Float>()
     private var valuePlus: Float = 25f
     private var valueCheck: Float = 16f
     private var radiusButton: Float = 0f
@@ -71,8 +70,9 @@ class CustomItem(
         val typedArray = context.obtainStyledAttributes(attributesSet, R.styleable.CustomItem, defStyleAttr, defStyleRes)
         onColor = typedArray.getColor(R.styleable.CustomItem_pressedButtonColor, OPTION1_DEFAULT_COLOR)
         defColor = typedArray.getColor(R.styleable.CustomItem_defaultButtonColor, OPTION2_DEFAULT_COLOR)
-        textColor = typedArray.getColor(R.styleable.CustomItem_defaultTextColor, OPTION2_DEFAULT_COLOR)
-        dividingLineColor = typedArray.getColor(R.styleable.CustomItem_defaultDividingLineColor, OPTION2_DEFAULT_COLOR)
+        textColor = typedArray.getColor(R.styleable.CustomItem_defaultTextColor, OPTION3_DEFAULT_COLOR)
+        dividingLineColor = typedArray.getColor(R.styleable.CustomItem_defaultDividingLineColor, OPTION4_DEFAULT_COLOR)
+        roundedCorners = typedArray.getFloat(R.styleable.CustomItem_roundedCorners, OPTION5_DEFAULT_ROUNDED_CORNERS)
 
         typedArray.recycle()
     }
@@ -158,7 +158,7 @@ class CustomItem(
     private fun drawButton(canvas: Canvas){
 
         val path = Path().apply {
-            addRoundRect(rect, corner, corner, Path.Direction.CW)
+            addRoundRect(rect, roundedCorners, roundedCorners, Path.Direction.CW)
         }
         canvas.drawPath(path, defPaint)
         canvas.clipPath(path)
@@ -304,7 +304,10 @@ class CustomItem(
 
 
     companion object {
-        const val OPTION1_DEFAULT_COLOR = Color.GREEN
-        const val OPTION2_DEFAULT_COLOR = Color.RED
+        const val OPTION1_DEFAULT_COLOR = Color.RED
+        const val OPTION2_DEFAULT_COLOR = Color.BLACK
+        const val OPTION3_DEFAULT_COLOR = Color.WHITE
+        const val OPTION4_DEFAULT_COLOR = Color.WHITE
+        const val OPTION5_DEFAULT_ROUNDED_CORNERS = 38f
     }
 }

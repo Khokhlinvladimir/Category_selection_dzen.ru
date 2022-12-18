@@ -5,6 +5,7 @@
         <attr name="defaultButtonColor" format="color"/>
         <attr name="defaultTextColor" format="color"/>
         <attr name="defaultDividingLineColor" format="color"/>
+        <attr name="roundedCorners" format="float"/>
     </declare-styleable>
     
     <attr name="customItemStyle" format="reference"/>

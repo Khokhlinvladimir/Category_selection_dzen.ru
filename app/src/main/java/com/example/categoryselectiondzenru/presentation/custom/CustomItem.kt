@@ -35,7 +35,7 @@ class CustomItem(
     private var startX: Float = 0f
     private var startY: Float = 0f
     private var textSize: Int = 130
-    private var corner: Float = 40f
+    private var corner: Float = 38f
     private var valuePlus: Float = 25f
     private var radiusButton: Float = 0f
     private var alphaAnimation: Int = 255
@@ -249,17 +249,17 @@ class CustomItem(
         val bottomX = rectWidth - 70f
         val bottomY = rectHeight -40f
 
-        val startVerticalX = rectWidth - 85f
-        val startVerticalY = rectHeight -55f
+        val startX1 = bottomX - 16f
+        val startY1 = bottomY - 16f
 
 
-        canvas.drawLine(startVerticalX, startVerticalY, bottomX, bottomY , checkPaint)
+        canvas.drawLine(startX1, startY1, bottomX, bottomY , checkPaint)
 
-        val startHorizontalX = rectWidth - 35f
-        val startHorizontalY = rectHeight -75f
+        val startX2 = bottomX + 32f
+        val startY2 = bottomY - 32f
 
 
-        canvas.drawLine(startHorizontalX, startHorizontalY, bottomX, bottomY, checkPaint)
+        canvas.drawLine(startX2, startY2, bottomX, bottomY, checkPaint)
     }
 
 

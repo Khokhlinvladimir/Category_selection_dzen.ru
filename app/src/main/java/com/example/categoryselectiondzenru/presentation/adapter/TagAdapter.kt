@@ -11,52 +11,32 @@ import kotlin.properties.Delegates
 
 class TagAdapter(private var categoryList: List<Category>) : RecyclerView.Adapter<TagAdapter.Holder>() {
 
-    private val measureHelper = MeasureHelper(this, categoryList.size)
-
-    private var recyclerView: RecyclerView? = null
-
     private var ready = false
-
+    private val measureHelper = MeasureHelper(this, categoryList.size)
+    private var recyclerView: RecyclerView? = null
     var onItemClickListener: OnItemClickListener? = null
-
     var measuringDone by Delegates.observable(false) { _, _, newVal ->
-        if (newVal)
-            update()
+        if (newVal) update()
     }
 
-
     private fun update() {
-
         recyclerView ?: return
-
         recyclerView?.apply {
-
             visibility = View.VISIBLE
-
             categoryList = measureHelper.getItems() as ArrayList<Category>
-
             layoutManager = CustomGridLayoutManager(context, MeasureHelper.SPAN_COUNT, measureHelper.getSpans())
         }
     }
 
-
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-
         this.recyclerView = recyclerView.apply {
-
             visibility = View.INVISIBLE
-
-            viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
+            viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-
                     recyclerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
                     measureHelper.measureBaseCell(recyclerView.width)
-
                     ready = true
-
                     notifyDataSetChanged()
                 }
             })
@@ -64,13 +44,10 @@ class TagAdapter(private var categoryList: List<Category>) : RecyclerView.Adapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-
         val inflater = LayoutInflater.from(parent.context)
         val binding = CategoryItemBinding.inflate(inflater, parent, false)
-
         return Holder(binding)
     }
-
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
@@ -87,47 +64,30 @@ class TagAdapter(private var categoryList: List<Category>) : RecyclerView.Adapte
             measureHelper.measure(holder.binding, tag)
     }
 
-
     override fun getItemCount() = if (ready) categoryList.size else 0
-
-
-
-
-
 
     inner class Holder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
+        private val customItem = binding.mCustom
+
         fun setData(category: Category, shouldMeasure: Boolean) {
 
-            val myItemBinding = binding.mCustom
+            customItem.text = category.title
 
-            myItemBinding.text = category.title
-
-
-
-            binding.mCustom.apply {
+            customItem.apply {
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
             }
-
             if (!shouldMeasure) {
-                binding.mCustom.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
+                customItem.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
             }
-
-        }
+    }
 
         fun setClickListener(category: Category, onItemClickListener: OnItemClickListener?) {
             onItemClickListener?.let {
-
-                binding.mCustom.setOnClickListener {
+                customItem.setOnClickListener {
                     onItemClickListener.onItemClick(category)
                 }
-
-
-
-
             }
         }
     }
-
-
 }

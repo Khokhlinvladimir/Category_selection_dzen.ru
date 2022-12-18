@@ -1,6 +1,7 @@
 package com.example.categoryselectiondzenru.presentation.custom
 
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -10,7 +11,6 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import com.example.categoryselectiondzenru.R
-import kotlinx.coroutines.delay
 import kotlin.math.max
 
 class CustomItem(
@@ -161,9 +161,9 @@ class CustomItem(
 
         drawText(canvas)
 
-        drawPlus(canvas)
+        // drawPlus(canvas)
 
-        // drawCheck(canvas)
+         drawCheck(canvas)
 
         invalidate()
     }
@@ -215,7 +215,6 @@ class CustomItem(
         animatorPlus?.start()
     }
 
-
     private fun buttonAnimation(start: Int, end: Int) {
         animatorButton?.cancel()
         animatorButton = ValueAnimator.ofInt(start, end).apply {
@@ -229,7 +228,6 @@ class CustomItem(
         }
         animatorButton?.start()
     }
-
 
     private fun alphaAnimation(start: Int, end: Int, value: Long) {
         animatorAlpha?.cancel()
@@ -246,10 +244,7 @@ class CustomItem(
     }
 
 
-
-
     private fun drawCheck(canvas: Canvas){
-
 
         val bottomX = rectWidth - 70f
         val bottomY = rectHeight -40f
@@ -268,12 +263,8 @@ class CustomItem(
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-
-
-
-
-
 
         when(event.action){
             MotionEvent.ACTION_DOWN -> return true
@@ -298,8 +289,11 @@ class CustomItem(
 
             }
         }
-        return false
+        return super.callOnClick()
     }
+
+
+
 
 
 

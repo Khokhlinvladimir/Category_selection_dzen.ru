@@ -1,4 +1,6 @@
-package com.example.categoryselectiondzenru.presentation.adapter
+package com.example.categoryselectiondzenru.presentation.adapter.measuring
+
+import com.example.categoryselectiondzenru.presentation.adapter.data.Tag
 
 class TagRowManager {
 

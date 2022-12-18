@@ -8,22 +8,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.categoryselectiondzenru.App
-import com.example.categoryselectiondzenru.data.repository.Repository
 import com.example.categoryselectiondzenru.databinding.FragmentSelectionBinding
 import com.example.categoryselectiondzenru.presentation.CatViewModel
 import com.example.categoryselectiondzenru.presentation.CatViewModelFactory
 import com.example.categoryselectiondzenru.presentation.activity.MainActivity
-import com.example.categoryselectiondzenru.presentation.adapter.Selection
-import com.example.categoryselectiondzenru.presentation.adapter.Tag
+import com.example.categoryselectiondzenru.presentation.adapter.data.Tag
 import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnTaggableClickListener
-import com.example.categoryselectiondzenru.presentation.adapter.mapper.MyItem
-import com.example.categoryselectiondzenru.presentation.adapter.mapper.MyItemMapper
-import com.example.categoryselectiondzenru.presentation.custom.CustomItem
+import com.example.categoryselectiondzenru.presentation.adapter.data.MyItem
+import com.example.categoryselectiondzenru.presentation.adapter.data.MyItemMapper
 
 class SelectionFragment : Fragment() {
 
@@ -51,7 +46,7 @@ class SelectionFragment : Fragment() {
             }
 
 
-            val adapter = TagAdapter(mapper.mapFromEntityList(myItems), Selection.NON_SELECTABLE)
+            val adapter = TagAdapter(mapper.mapFromEntityList(myItems))
 
             val layoutManager = LinearLayoutManager(requireContext())
             recyclerView.adapter = adapter
@@ -60,6 +55,7 @@ class SelectionFragment : Fragment() {
             adapter.onTaggableClickListener = object : OnTaggableClickListener {
                 override fun onTaggableClick(taggable: Tag) {
                     Toast.makeText(requireContext(), " ${taggable.title}", Toast.LENGTH_SHORT).show()
+                    Log.d("LOG", "selection click}")
                 }
             }
         }

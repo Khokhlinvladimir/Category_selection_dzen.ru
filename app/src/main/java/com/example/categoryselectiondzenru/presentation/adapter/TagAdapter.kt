@@ -1,17 +1,15 @@
 package com.example.categoryselectiondzenru.presentation.adapter
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
+import com.example.categoryselectiondzenru.presentation.adapter.data.Tag
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnTaggableClickListener
+import com.example.categoryselectiondzenru.presentation.adapter.measuring.MeasureHelper
 import kotlin.properties.Delegates
 
-class TagAdapter(private var tagList: List<Tag>, private val selection: Selection
-) : RecyclerView.Adapter<TagAdapter.Holder>() {
+class TagAdapter(private var tagList: List<Tag>) : RecyclerView.Adapter<TagAdapter.Holder>() {
 
     private val measureHelper = MeasureHelper(this, tagList.size)
 
@@ -115,35 +113,18 @@ class TagAdapter(private var tagList: List<Tag>, private val selection: Selectio
                 binding.mCustom.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
             }
 
-            binding.mCustom.setOnClickListener {
-
-                if (selection == Selection.MULTI_SELECTION) {
-                    tag.checked = !tag.checked
-                    notifyItemChanged(adapterPosition)
-
-                }
-
-                else if (selection == Selection.SINGLE_SELECTION) {
-                    tagList.forEach { it.checked = false }
-                    tag.checked = true
-
-                    notifyDataSetChanged()
-                }
-            }
-
-            if (tag.checked) {
-
-            } else {
-
-            }
-
         }
 
         fun setClickListener(tag: Tag, onTaggableClickListener: OnTaggableClickListener?) {
             onTaggableClickListener?.let {
+
                 binding.mCustom.setOnClickListener {
                     onTaggableClickListener.onTaggableClick(tag)
                 }
+
+
+
+
             }
         }
     }

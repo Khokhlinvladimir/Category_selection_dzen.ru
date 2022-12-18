@@ -1,13 +1,15 @@
-package com.example.categoryselectiondzenru.presentation.adapter
+package com.example.categoryselectiondzenru.presentation.adapter.measuring
 
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
+import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
+import com.example.categoryselectiondzenru.presentation.adapter.data.Tag
 
 class MeasureHelper(private val adapter: TagAdapter, private val count: Int) {
 
     companion object {
-        const val SPAN_COUNT = 52
+        const val SPAN_COUNT = 100
     }
 
     private var measuredCount = 0
@@ -32,24 +34,23 @@ class MeasureHelper(private val adapter: TagAdapter, private val count: Int) {
             adapter.measuringDone = true
     }
 
-    fun measure(holder: CategoryItemBinding, tag: Tag) {
+
+   fun measure(holder: CategoryItemBinding, tag: Tag) {
 
         val itemView = holder.root.apply {
-            layoutParams.height = 1
+            layoutParams.height = 0
         }
 
         val globalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
 
-
                 itemView.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
 
-                val marginTotal =
-                    (holder.mCustom.layoutParams as ViewGroup.MarginLayoutParams).marginStart * 2
+                val margin = (holder.mCustom.layoutParams as ViewGroup.MarginLayoutParams).marginStart
 
-
-                val span = (holder.mCustom.width + marginTotal) / baseCell
+              //  Log.d("LOG", "marginTotal $marginTotal")
+                val span = (holder.mCustom.width +margin + 3) / baseCell
 
                 measuredCount++
 

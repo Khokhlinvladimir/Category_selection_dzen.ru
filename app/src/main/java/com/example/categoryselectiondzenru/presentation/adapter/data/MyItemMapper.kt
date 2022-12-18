@@ -1,6 +1,4 @@
-package com.example.categoryselectiondzenru.presentation.adapter.mapper
-
-import com.example.categoryselectiondzenru.presentation.adapter.Tag
+package com.example.categoryselectiondzenru.presentation.adapter.data
 
 class MyItemMapper : Mapper<MyItem>() {
 

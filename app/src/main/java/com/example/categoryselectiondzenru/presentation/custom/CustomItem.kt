@@ -277,14 +277,14 @@ class CustomItem(
                 if (counter %2==0){
                     animationPlus(0, 25, 400)
                     alphaAnimationPlus(0, 255, 400)
-                    buttonAnimation(rectWidth, 0, 400)
+                    buttonAnimation(rectWidth, 0, 260)
                     animationCheck(16, 0, 0)
                     alphaAnimationCheck(255, 0, 200)
 
                 }
                 else {
                     animationPlus(25, 0, 0)
-                    buttonAnimation(0, rectWidth, 200)
+                    buttonAnimation(0, rectWidth, 160)
                     alphaAnimationPlus(255, 0, 200)
                     animationCheck(0, 16, 200)
                     alphaAnimationCheck(0, 255, 200)

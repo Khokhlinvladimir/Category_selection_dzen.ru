@@ -37,8 +37,10 @@ class CustomItem(
     private var textSize: Int = 130
     private var corner: Float = 38f
     private var valuePlus: Float = 25f
+    private var valueCheck: Float = 16f
     private var radiusButton: Float = 0f
-    private var alphaAnimation: Int = 255
+    private var alphaCheck: Int = 0
+    private var alphaButton: Int = 255
     private var counter: Int = 0
     private var centerX: Float = 0f
     private var centerY: Float = 0f
@@ -46,7 +48,9 @@ class CustomItem(
 
     private var animatorPlus: ValueAnimator? = null
     private var animatorButton: ValueAnimator? = null
-    private var animatorAlpha: ValueAnimator? = null
+    private var animatorCheck: ValueAnimator? = null
+    private var animatorAlphaPlus: ValueAnimator? = null
+    private var animatorAlphaCheck: ValueAnimator? = null
     var text = "Кинотеатр"
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -58,10 +62,6 @@ class CustomItem(
     init {
         initPaints()
         initAttributes(attributesSet, defStyleAttr, defStyleRes)
-      /*  if (isInEditMode) {
-            startX= 0f
-            startY= 0f
-        }*/
     }
 
     private fun initAttributes(attributesSet: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
@@ -70,7 +70,6 @@ class CustomItem(
 
         onColor = typedArray.getColor(R.styleable.CustomItem_pressedButtonColor, OPTION1_DEFAULT_COLOR)
         defColor = typedArray.getColor(R.styleable.CustomItem_defaultButtonColor, OPTION2_DEFAULT_COLOR)
-
 
         typedArray.recycle()
     }
@@ -119,8 +118,6 @@ class CustomItem(
 
         textSize = ((text.length) * 32.5).toInt()
 
-
-
         val minWidth = suggestedMinimumWidth + paddingLeft + paddingRight
         val minHeight = suggestedMinimumHeight + paddingTop + paddingBottom
 
@@ -130,8 +127,6 @@ class CustomItem(
         setMeasuredDimension(
             resolveSize(desiredWidth, widthMeasureSpec),
             resolveSize(desiredHeight, heightMeasureSpec))
-
-
     }
 
 
@@ -153,17 +148,15 @@ class CustomItem(
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
-
-
         drawButton(canvas)
 
         drawLine(canvas)
 
         drawText(canvas)
 
-        // drawPlus(canvas)
+        drawPlus(canvas)
 
-         drawCheck(canvas)
+        drawCheck(canvas)
 
         invalidate()
     }
@@ -185,7 +178,7 @@ class CustomItem(
 
 
     private fun drawLine(canvas: Canvas){
-        linePaint.alpha = alphaAnimation
+        linePaint.alpha = alphaButton
         canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, linePaint)
     }
 
@@ -196,16 +189,44 @@ class CustomItem(
 
 
     private fun drawPlus(canvas: Canvas){
-        checkPaint.alpha = alphaAnimation
+        checkPaint.alpha = alphaButton
         canvas.drawLine(centerX, centerY - valuePlus, centerX, centerY + valuePlus , checkPaint)
 
         canvas.drawLine(centerX - valuePlus, centerY, centerX + valuePlus, centerY, checkPaint)
 
     }
 
-    private fun plusAnimation(start: Int, end: Int) {
+    private fun drawCheck(canvas: Canvas){
+
+        checkPaint.alpha = alphaCheck
+
+        val bottomX = rectWidth - 70f
+        val bottomY = rectHeight -40f
+
+        canvas.drawLine(bottomX - valueCheck, bottomY - valueCheck, bottomX, bottomY , checkPaint)
+
+        canvas.drawLine(bottomX + valueCheck*2, bottomY - valueCheck*2, bottomX, bottomY, checkPaint)
+    }
+
+
+
+    private fun buttonAnimation(start: Int, end: Int, value: Long) {
+        animatorButton?.cancel()
+        animatorButton = ValueAnimator.ofInt(start, end).apply {
+            startDelay = value
+            duration = 200
+            interpolator = LinearInterpolator()
+            addUpdateListener { valueAnimator ->
+                radiusButton = (valueAnimator.animatedValue as Int).toFloat()
+            }
+        }
+        animatorButton?.start()
+    }
+
+    private fun animationPlus(start: Int, end: Int, value: Long) {
         animatorPlus?.cancel()
         animatorPlus = ValueAnimator.ofInt(start, end).apply {
+            startDelay = value
             duration = 200
             interpolator = LinearInterpolator()
             addUpdateListener { valueAnimator ->
@@ -215,52 +236,47 @@ class CustomItem(
         animatorPlus?.start()
     }
 
-    private fun buttonAnimation(start: Int, end: Int) {
-        animatorButton?.cancel()
-        animatorButton = ValueAnimator.ofInt(start, end).apply {
-            startDelay = 200
-            duration = 200
+    private fun animationCheck(start: Int, end: Int, value: Long) {
+        animatorCheck?.cancel()
+        animatorCheck = ValueAnimator.ofInt(start, end).apply {
+            startDelay = value
+            duration = 400
             interpolator = LinearInterpolator()
             addUpdateListener { valueAnimator ->
-                radiusButton = (valueAnimator.animatedValue as Int).toFloat()
-                invalidate()
+                valueCheck = (valueAnimator.animatedValue as Int).toFloat()
             }
         }
-        animatorButton?.start()
+        animatorCheck?.start()
     }
 
-    private fun alphaAnimation(start: Int, end: Int, value: Long) {
-        animatorAlpha?.cancel()
-        animatorAlpha = ValueAnimator.ofInt(start, end).apply {
+    private fun alphaAnimationPlus(start: Int, end: Int, value: Long) {
+        animatorAlphaPlus?.cancel()
+        animatorAlphaPlus = ValueAnimator.ofInt(start, end).apply {
             startDelay = value
             duration = 10
             interpolator = LinearInterpolator()
             addUpdateListener { valueAnimator ->
-                alphaAnimation = valueAnimator.animatedValue as Int
-                invalidate()
+                alphaButton = valueAnimator.animatedValue as Int
             }
         }
-        animatorAlpha?.start()
+        animatorAlphaPlus?.start()
+    }
+
+    private fun alphaAnimationCheck(start: Int, end: Int, value: Long) {
+        animatorAlphaCheck?.cancel()
+        animatorAlphaCheck = ValueAnimator.ofInt(start, end).apply {
+            startDelay = value
+            duration = 10
+            interpolator = LinearInterpolator()
+            addUpdateListener { valueAnimator ->
+                alphaCheck = valueAnimator.animatedValue as Int
+            }
+        }
+        animatorAlphaCheck?.start()
     }
 
 
-    private fun drawCheck(canvas: Canvas){
 
-        val bottomX = rectWidth - 70f
-        val bottomY = rectHeight -40f
-
-        val startX1 = bottomX - 16f
-        val startY1 = bottomY - 16f
-
-
-        canvas.drawLine(startX1, startY1, bottomX, bottomY , checkPaint)
-
-        val startX2 = bottomX + 32f
-        val startY2 = bottomY - 32f
-
-
-        canvas.drawLine(startX2, startY2, bottomX, bottomY, checkPaint)
-    }
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -274,14 +290,19 @@ class CustomItem(
                 counter += 1
 
                 if (counter %2==0){
-                    plusAnimation(0, 25)
-                    alphaAnimation(0, 255, 0)
-                    buttonAnimation(rectWidth, 0)
+                    animationPlus(0, 25, 400)
+                    alphaAnimationPlus(0, 255, 400)
+                    buttonAnimation(rectWidth, 0, 400)
+                    animationCheck(16, 0, 0)
+                    alphaAnimationCheck(255, 0, 200)
+
                 }
                 else {
-                    plusAnimation(25, 0)
-                    buttonAnimation(0, rectWidth)
-                    alphaAnimation(255, 0, 200)
+                    animationPlus(25, 0, 0)
+                    buttonAnimation(0, rectWidth, 200)
+                    alphaAnimationPlus(255, 0, 200)
+                    animationCheck(0, 16, 200)
+                    alphaAnimationCheck(0, 255, 200)
 
                 }
 

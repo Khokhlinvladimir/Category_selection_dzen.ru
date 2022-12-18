@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.fragment.ViewCategoriesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragment.ViewCategoriesFragment">
+    android:background="@color/black">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_header_color"
+        android:textSize="18sp"
+        android:fontFamily="@font/dzen_medium"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/selection_categories"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSelectionCategories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="10dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="12dp"/>
 
 </FrameLayout>

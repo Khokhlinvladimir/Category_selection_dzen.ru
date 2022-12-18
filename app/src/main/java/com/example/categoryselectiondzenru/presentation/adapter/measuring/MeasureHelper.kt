@@ -59,7 +59,7 @@ class MeasureHelper(private val adapter: Any, private val count: Int) {
                }
            }
            is CategorySelectionItemBinding -> {
-               holder.root.apply {
+               holder.textViewItem.apply {
                    layoutParams.height = 0
 
                    val globalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {

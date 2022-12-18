@@ -16,7 +16,7 @@ import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModel
 import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModelFactory
 import com.example.categoryselectiondzenru.presentation.activity.MainActivity
 import com.example.categoryselectiondzenru.model.Category
-import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
+import com.example.categoryselectiondzenru.presentation.adapter.CatAdapter
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
 
 class SelectionFragment : Fragment() {
@@ -28,7 +28,6 @@ class SelectionFragment : Fragment() {
         CatViewModelFactory((requireActivity().application as App).repository)
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSelectionBinding.inflate(inflater, container, false)
 
@@ -38,7 +37,7 @@ class SelectionFragment : Fragment() {
 
       viewModel.getListCategories.observe(viewLifecycleOwner){
 
-        val adapter = TagAdapter(it)
+        val adapter = CatAdapter(it)
 
             val layoutManager = LinearLayoutManager(requireContext())
             recyclerView.adapter = adapter

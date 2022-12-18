@@ -8,12 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.categoryselectiondzenru.App
-import com.example.categoryselectiondzenru.R
-import com.example.categoryselectiondzenru.data.entity.Categories
-import com.example.categoryselectiondzenru.databinding.FragmentSelectionBinding
 import com.example.categoryselectiondzenru.databinding.FragmentViewCategoriesBinding
 import com.example.categoryselectiondzenru.model.Category
-import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
+import com.example.categoryselectiondzenru.presentation.adapter.SelectionCatAdapter
 import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModel
 import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModelFactory
 
@@ -38,7 +35,7 @@ class ViewCategoriesFragment : Fragment() {
             for (i in it){
                 dbList.add(Category(i.category))
             }
-            recyclerView.adapter = TagAdapter(dbList)
+            recyclerView.adapter = SelectionCatAdapter(dbList)
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
         }
 

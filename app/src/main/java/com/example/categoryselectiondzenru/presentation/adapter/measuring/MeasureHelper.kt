@@ -2,11 +2,14 @@ package com.example.categoryselectiondzenru.presentation.adapter.measuring
 
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.viewbinding.ViewBinding
 import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
-import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
+import com.example.categoryselectiondzenru.databinding.CategorySelectionItemBinding
+import com.example.categoryselectiondzenru.presentation.adapter.CatAdapter
 import com.example.categoryselectiondzenru.model.Category
+import com.example.categoryselectiondzenru.presentation.adapter.SelectionCatAdapter
 
-class MeasureHelper(private val adapter: TagAdapter, private val count: Int) {
+class MeasureHelper(private val adapter: Any, private val count: Int) {
 
     private var measuredCount = 0
     private val rowManager = CatManager()
@@ -21,27 +24,63 @@ class MeasureHelper(private val adapter: TagAdapter, private val count: Int) {
     fun getSpans() = rowManager.getSortedSpans()
 
     private fun cellMeasured() {
-        if (!adapter.measuringDone && !shouldMeasure()) adapter.measuringDone = true
+
+        when(adapter){
+            is CatAdapter -> {
+                if (!adapter.measuringDone && !shouldMeasure()) adapter.measuringDone = true
+            }
+            is SelectionCatAdapter -> {
+                if (!adapter.measuringDone && !shouldMeasure()) adapter.measuringDone = true
+            }
+        }
+
     }
 
 
-   fun measure(holder: CategoryItemBinding, category: Category) {
-       holder.root.apply {
-           layoutParams.height = 0
+   fun measure(holder: ViewBinding, category: Category) {
 
-           val globalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
-               override fun onGlobalLayout() {
-                   viewTreeObserver.removeOnGlobalLayoutListener(this)
-                   val margin =
-                       (holder.mCustom.layoutParams as ViewGroup.MarginLayoutParams).marginStart
-                   val span = (holder.mCustom.width + margin + 3) / baseCell
-                   measuredCount++
-                   rowManager.add(span, category)
-                   cellMeasured()
+       when(holder){
+           is CategoryItemBinding -> {
+               holder.root.apply {
+                   layoutParams.height = 0
+
+                   val globalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
+                       override fun onGlobalLayout() {
+                           viewTreeObserver.removeOnGlobalLayoutListener(this)
+                           val margin =
+                               (holder.mCustom.layoutParams as ViewGroup.MarginLayoutParams).marginStart
+                           val span = (holder.mCustom.width + margin + 3) / baseCell
+                           measuredCount++
+                           rowManager.add(span, category)
+                           cellMeasured()
+                       }
+                   }
+                   viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)
                }
            }
-           viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)
+           is CategorySelectionItemBinding -> {
+               holder.root.apply {
+                   layoutParams.height = 0
+
+                   val globalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
+                       override fun onGlobalLayout() {
+                           viewTreeObserver.removeOnGlobalLayoutListener(this)
+                           val margin =
+                               (holder.textViewItem.layoutParams as ViewGroup.MarginLayoutParams).marginStart
+                           val span = (holder.textViewItem.width + margin + 3) / baseCell
+                           measuredCount++
+                           rowManager.add(span, category)
+                           cellMeasured()
+                       }
+                   }
+                   viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)
+               }
+           }
        }
+
+
+
+
    }
 
     companion object {

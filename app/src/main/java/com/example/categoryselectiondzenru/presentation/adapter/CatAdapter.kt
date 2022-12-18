@@ -9,7 +9,7 @@ import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItem
 import com.example.categoryselectiondzenru.presentation.adapter.measuring.MeasureHelper
 import kotlin.properties.Delegates
 
-class TagAdapter(private var categoryList: List<Category>) : RecyclerView.Adapter<TagAdapter.Holder>() {
+class CatAdapter(private var categoryList: List<Category>) : RecyclerView.Adapter<CatAdapter.Holder>() {
 
     private var ready = false
     private val measureHelper = MeasureHelper(this, categoryList.size)

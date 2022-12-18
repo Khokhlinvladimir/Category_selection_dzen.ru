@@ -12,6 +12,7 @@ import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import com.example.categoryselectiondzenru.R
 import kotlin.math.max
+import kotlin.properties.Delegates
 
 class CustomItem(
     context: Context,
@@ -23,13 +24,15 @@ class CustomItem(
     private lateinit var onPaint: Paint
     private lateinit var defPaint: Paint
     private lateinit var textPaint: Paint
-    private lateinit var linePaint: Paint
+    private lateinit var dividingLinePaint: Paint
     private lateinit var checkPaint: Paint
-    private var onColor = ContextCompat.getColor(context, R.color.button_on_color)
-    private var defColor =  ContextCompat.getColor(context, R.color.button_def_color)
-    private var textColor =  ContextCompat.getColor(context, R.color.white)
-    private var lineColor =  ContextCompat.getColor(context, R.color.text_header_color)
     private val rect: RectF = RectF(0f, 0f, 0f, 0f)
+
+    private var onColor by Delegates.notNull<Int>()
+    private var defColor by Delegates.notNull<Int>()
+    private var textColor by Delegates.notNull<Int>()
+    private var dividingLineColor by Delegates.notNull<Int>()
+
     private var rectWidth: Int = 180
     private val rectHeight: Int = 110
     private var startX: Float = 0f
@@ -44,12 +47,13 @@ class CustomItem(
     private var counter: Int = 0
     private var centerX: Float = 0f
     private var centerY: Float = 0f
+
     private var animatorPlus: ValueAnimator? = null
     private var animatorButton: ValueAnimator? = null
     private var animatorCheck: ValueAnimator? = null
     private var animatorAlphaPlus: ValueAnimator? = null
     private var animatorAlphaCheck: ValueAnimator? = null
-    var text = "Кинотеатр"
+    var text = "Item"
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
 
@@ -58,16 +62,17 @@ class CustomItem(
     constructor(context: Context) : this(context, null)
 
     init {
-        initPaints()
         initAttributes(attributesSet, defStyleAttr, defStyleRes)
+        initPaints()
+
     }
 
     private fun initAttributes(attributesSet: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
-
         val typedArray = context.obtainStyledAttributes(attributesSet, R.styleable.CustomItem, defStyleAttr, defStyleRes)
-
         onColor = typedArray.getColor(R.styleable.CustomItem_pressedButtonColor, OPTION1_DEFAULT_COLOR)
         defColor = typedArray.getColor(R.styleable.CustomItem_defaultButtonColor, OPTION2_DEFAULT_COLOR)
+        textColor = typedArray.getColor(R.styleable.CustomItem_defaultTextColor, OPTION2_DEFAULT_COLOR)
+        dividingLineColor = typedArray.getColor(R.styleable.CustomItem_defaultDividingLineColor, OPTION2_DEFAULT_COLOR)
 
         typedArray.recycle()
     }
@@ -95,9 +100,9 @@ class CustomItem(
             textSize = 47f
         }
 
-        linePaint =  Paint(Paint.ANTI_ALIAS_FLAG)
-        linePaint.apply {
-            color = lineColor
+        dividingLinePaint =  Paint(Paint.ANTI_ALIAS_FLAG)
+        dividingLinePaint.apply {
+            color = dividingLineColor
             style = Paint.Style.FILL
             strokeCap = Paint.Cap.ROUND
             strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources.displayMetrics)
@@ -163,8 +168,8 @@ class CustomItem(
 
 
     private fun drawLine(canvas: Canvas){
-        linePaint.alpha = alphaButton
-        canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, linePaint)
+        dividingLinePaint.alpha = alphaButton
+        canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, dividingLinePaint)
     }
 
 

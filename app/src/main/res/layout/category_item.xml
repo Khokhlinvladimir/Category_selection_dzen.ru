@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
 
     <com.example.categoryselectiondzenru.presentation.custom.CustomItem
 
         android:id="@+id/mCustom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        custom:defaultButtonColor="@color/button_def_color"
+        custom:pressedButtonColor="@color/button_on_color"
+        custom:defaultTextColor="@color/white"
+        custom:defaultDividingLineColor="@color/text_header_color"
         android:layout_margin="4dp"/>
 
 

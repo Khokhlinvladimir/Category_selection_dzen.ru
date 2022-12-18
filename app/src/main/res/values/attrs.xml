@@ -3,6 +3,8 @@
     <declare-styleable name="CustomItem">
         <attr name="pressedButtonColor" format="color"/>
         <attr name="defaultButtonColor" format="color"/>
+        <attr name="defaultTextColor" format="color"/>
+        <attr name="defaultDividingLineColor" format="color"/>
     </declare-styleable>
     
     <attr name="customItemStyle" format="reference"/>

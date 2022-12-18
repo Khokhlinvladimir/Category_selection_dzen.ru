@@ -1,4 +1,4 @@
-package com.example.categoryselectiondzenru.presentation
+package com.example.categoryselectiondzenru.presentation.viewmodel
 
 import androidx.lifecycle.*
 import com.example.categoryselectiondzenru.data.entity.Categories

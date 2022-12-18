@@ -9,9 +9,13 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.core.content.res.ResourcesCompat
 import com.example.categoryselectiondzenru.R
 import kotlin.math.max
 import kotlin.properties.Delegates
+
+
+typealias OnActionListener = (isCheck: Boolean) -> Unit
 
 class CustomItem(
     context: Context,
@@ -52,6 +56,9 @@ class CustomItem(
     private var animatorCheck: ValueAnimator? = null
     private var animatorAlphaPlus: ValueAnimator? = null
     private var animatorAlphaCheck: ValueAnimator? = null
+
+    var actionListener: OnActionListener? = null
+    private val customTypeface = ResourcesCompat.getFont(context, R.font.dzen_medium)
     var text = "Item"
 
     constructor(context: Context, attributesSet: AttributeSet?, defStyleAttr: Int) : this(context, attributesSet, defStyleAttr, R.attr.customItemStyle)
@@ -98,6 +105,7 @@ class CustomItem(
             color = textColor
             style = Paint.Style.FILL
             textSize = 47f
+            typeface = customTypeface
         }
 
         dividingLinePaint =  Paint(Paint.ANTI_ALIAS_FLAG)
@@ -280,6 +288,7 @@ class CustomItem(
                     buttonAnimation(rectWidth, 0, 260)
                     animationCheck(16, 0, 0)
                     alphaAnimationCheck(255, 0, 200)
+                    actionListener?.invoke(false)
 
                 }
                 else {
@@ -288,6 +297,7 @@ class CustomItem(
                     alphaAnimationPlus(255, 0, 200)
                     animationCheck(0, 16, 200)
                     alphaAnimationCheck(0, 255, 200)
+                    actionListener?.invoke(true)
 
                 }
 

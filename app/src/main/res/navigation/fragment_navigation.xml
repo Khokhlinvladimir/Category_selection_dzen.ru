@@ -7,5 +7,16 @@
     <fragment
         android:id="@+id/selectionFragment"
         android:name="com.example.categoryselectiondzenru.presentation.fragment.SelectionFragment"
-        android:label="SelectionFragment" />
+        android:label="SelectionFragment" >
+        <action
+            android:id="@+id/action_selectionFragment_to_viewCategoriesFragment"
+            app:destination="@id/viewCategoriesFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/viewCategoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewCategoriesFragment"
+        android:name="com.example.categoryselectiondzenru.presentation.fragment.ViewCategoriesFragment"
+        android:label="fragment_view_categories"
+        tools:layout="@layout/fragment_view_categories" />
 </navigation>

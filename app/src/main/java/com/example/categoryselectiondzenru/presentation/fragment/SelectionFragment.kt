@@ -1,7 +1,6 @@
 package com.example.categoryselectiondzenru.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.categoryselectiondzenru.App
+import com.example.categoryselectiondzenru.R
+import com.example.categoryselectiondzenru.data.entity.Categories
 import com.example.categoryselectiondzenru.databinding.FragmentSelectionBinding
-import com.example.categoryselectiondzenru.presentation.CatViewModel
-import com.example.categoryselectiondzenru.presentation.CatViewModelFactory
+import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModel
+import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModelFactory
 import com.example.categoryselectiondzenru.presentation.activity.MainActivity
 import com.example.categoryselectiondzenru.model.Category
 import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
@@ -44,9 +45,15 @@ class SelectionFragment : Fragment() {
             recyclerView.layoutManager = layoutManager
 
             adapter.onItemClickListener = object : OnItemClickListener {
-                override fun onItemClick(category: Category) {
-                    Toast.makeText(requireContext(), " ${category.title}", Toast.LENGTH_SHORT).show()
-                    Log.d("LOG", "selection click}")
+                override fun onItemClick(category: Category, isCheck: Boolean) {
+
+                    if (isCheck){
+                        viewModel.insert(Categories(category = category.name, timestamp = System.currentTimeMillis()))
+                    } else {
+                        viewModel.deleteByCategory(category = category.name)
+                    }
+
+                    Toast.makeText(requireContext(), " ${category.name}  $isCheck", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -58,6 +65,16 @@ class SelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.button.setOnClickListener {
+            onClick()
+        }
+
+    }
+
+
+
+    private fun onClick(){
+        (activity as MainActivity).navController.navigate(R.id.action_selectionFragment_to_viewCategoriesFragment)
     }
 
 

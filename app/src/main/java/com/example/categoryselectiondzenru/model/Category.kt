@@ -1,3 +1,3 @@
 package com.example.categoryselectiondzenru.model
 
-data class Category(val title: String)
+data class Category(val name: String)

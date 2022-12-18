@@ -72,7 +72,7 @@ class TagAdapter(private var categoryList: List<Category>) : RecyclerView.Adapte
 
         fun setData(category: Category, shouldMeasure: Boolean) {
 
-            customItem.text = category.title
+            customItem.text = category.name
 
             customItem.apply {
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -82,12 +82,15 @@ class TagAdapter(private var categoryList: List<Category>) : RecyclerView.Adapte
             }
     }
 
+
         fun setClickListener(category: Category, onItemClickListener: OnItemClickListener?) {
+            customItem.actionListener = { isCheck ->
             onItemClickListener?.let {
                 customItem.setOnClickListener {
-                    onItemClickListener.onItemClick(category)
+                    onItemClickListener.onItemClick(category, isCheck)
                 }
             }
+        }
         }
     }
 }

@@ -4,7 +4,7 @@ import android.view.*
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
-import com.example.categoryselectiondzenru.presentation.adapter.data.Category
+import com.example.categoryselectiondzenru.model.Category
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
 import com.example.categoryselectiondzenru.presentation.adapter.measuring.MeasureHelper
 import kotlin.properties.Delegates

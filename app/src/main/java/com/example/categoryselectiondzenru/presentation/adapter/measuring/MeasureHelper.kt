@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
 import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
-import com.example.categoryselectiondzenru.presentation.adapter.data.Category
+import com.example.categoryselectiondzenru.model.Category
 
 class MeasureHelper(private val adapter: TagAdapter, private val count: Int) {
 

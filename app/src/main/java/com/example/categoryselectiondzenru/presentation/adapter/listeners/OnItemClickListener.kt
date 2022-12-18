@@ -1,6 +1,6 @@
 package com.example.categoryselectiondzenru.presentation.adapter.listeners
 
-import com.example.categoryselectiondzenru.presentation.adapter.data.Category
+import com.example.categoryselectiondzenru.model.Category
 
 interface OnItemClickListener {
     fun onItemClick(category: Category)

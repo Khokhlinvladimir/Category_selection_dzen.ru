@@ -1,6 +1,6 @@
 package com.example.categoryselectiondzenru.presentation.adapter.measuring
 
-import com.example.categoryselectiondzenru.presentation.adapter.data.Category
+import com.example.categoryselectiondzenru.model.Category
 import kotlin.math.ceil
 
 class CatManager {

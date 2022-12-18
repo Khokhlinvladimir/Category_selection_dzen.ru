@@ -3,7 +3,7 @@ package com.example.categoryselectiondzenru.data.repository
 import androidx.annotation.WorkerThread
 import com.example.categoryselectiondzenru.data.db.CategoriesDao
 import com.example.categoryselectiondzenru.data.entity.Categories
-import com.example.categoryselectiondzenru.presentation.adapter.data.Category
+import com.example.categoryselectiondzenru.model.Category
 import kotlinx.coroutines.flow.Flow
 
 class Repository(private val categoriesDao: CategoriesDao) {
@@ -53,6 +53,7 @@ class Repository(private val categoriesDao: CategoriesDao) {
                 Category("Новости"),
                 Category("Отдых"),
                 Category("Еда"),
-                Category("Кино"))
+                Category("Кино")
+            )
         }
 }

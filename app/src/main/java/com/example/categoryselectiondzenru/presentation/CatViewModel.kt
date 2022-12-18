@@ -3,7 +3,7 @@ package com.example.categoryselectiondzenru.presentation
 import androidx.lifecycle.*
 import com.example.categoryselectiondzenru.data.entity.Categories
 import com.example.categoryselectiondzenru.data.repository.Repository
-import com.example.categoryselectiondzenru.presentation.adapter.data.Category
+import com.example.categoryselectiondzenru.model.Category
 import kotlinx.coroutines.launch
 
 

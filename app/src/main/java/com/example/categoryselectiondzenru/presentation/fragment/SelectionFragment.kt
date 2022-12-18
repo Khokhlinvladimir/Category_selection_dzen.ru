@@ -14,7 +14,7 @@ import com.example.categoryselectiondzenru.databinding.FragmentSelectionBinding
 import com.example.categoryselectiondzenru.presentation.CatViewModel
 import com.example.categoryselectiondzenru.presentation.CatViewModelFactory
 import com.example.categoryselectiondzenru.presentation.activity.MainActivity
-import com.example.categoryselectiondzenru.presentation.adapter.data.Category
+import com.example.categoryselectiondzenru.model.Category
 import com.example.categoryselectiondzenru.presentation.adapter.TagAdapter
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
 

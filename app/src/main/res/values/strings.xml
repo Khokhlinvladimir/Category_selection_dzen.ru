@@ -4,4 +4,5 @@
     <string name="later">Позже</string>
     <string name="proceed">Продолжить</string>
     <string name="selection_categories">Выбранные категории</string>
+    <string name="delete_list">Удалить список</string>
 </resources>

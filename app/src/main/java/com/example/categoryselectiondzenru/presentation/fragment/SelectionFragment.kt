@@ -51,8 +51,6 @@ class SelectionFragment : Fragment() {
                     } else {
                         viewModel.deleteByCategory(category = category.name)
                     }
-
-                    Toast.makeText(requireContext(), " ${category.name}  $isCheck", Toast.LENGTH_SHORT).show()
                 }
             }
         }

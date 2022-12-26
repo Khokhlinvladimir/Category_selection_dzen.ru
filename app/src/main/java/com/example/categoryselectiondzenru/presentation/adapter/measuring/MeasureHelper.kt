@@ -1,5 +1,6 @@
 package com.example.categoryselectiondzenru.presentation.adapter.measuring
 
+import android.util.Log
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.viewbinding.ViewBinding
@@ -41,7 +42,7 @@ class MeasureHelper(private val adapter: Any, private val count: Int) {
 
        when(holder){
            is CategoryItemBinding -> {
-               holder.root.apply {
+               holder.mCustom.apply {
                    layoutParams.height = 0
 
                    val globalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -53,6 +54,7 @@ class MeasureHelper(private val adapter: Any, private val count: Int) {
                            measuredCount++
                            rowManager.add(span, category)
                            cellMeasured()
+                           Log.d("LOG", "customDebug MeasureHelper  margin $margin + span $span")
                        }
                    }
                    viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)

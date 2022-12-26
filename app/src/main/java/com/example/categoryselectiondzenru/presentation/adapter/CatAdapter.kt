@@ -59,7 +59,6 @@ class CatAdapter(private var categoryList: List<Category>) : RecyclerView.Adapte
 
         holder.setClickListener(tag, onItemClickListener)
 
-
         if (shouldMeasure)
             measureHelper.measure(holder.binding, tag)
     }

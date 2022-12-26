@@ -9,6 +9,7 @@
         android:id="@+id/mCustom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="100dp"
         custom:defaultButtonColor="@color/button_def_color"
         custom:pressedButtonColor="@color/button_on_color"
         custom:defaultTextColor="@color/white"

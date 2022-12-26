@@ -49,11 +49,7 @@ class Repository(private val categoriesDao: CategoriesDao) {
                 Category("Рестораны"),
                 Category("Прогулки"),
                 Category("Политика"),
-                Category("Юмор"),
-                Category("Новости"),
-                Category("Отдых"),
-                Category("Еда"),
-                Category("Кино")
+                Category("Юмор")
             )
         }
 }

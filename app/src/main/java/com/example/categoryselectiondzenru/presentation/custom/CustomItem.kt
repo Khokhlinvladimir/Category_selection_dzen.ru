@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
@@ -50,6 +51,7 @@ class CustomItem(
     private var counter: Int = 0
     private var centerX: Float = 0f
     private var centerY: Float = 0f
+    private var widthPlusText: Float = 0f
 
     private var animatorPlus: ValueAnimator? = null
     private var animatorButton: ValueAnimator? = null
@@ -138,18 +140,26 @@ class CustomItem(
         setMeasuredDimension(
             resolveSize(desiredWidth, widthMeasureSpec),
             resolveSize(desiredHeight, heightMeasureSpec))
+
+        Log.d("LOG", "customDebug onMeasure $text + $textSize")
+
+        widthPlusText = (rectWidth + (textSize * 0.85).toInt()).toFloat()
+
     }
-
-
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        rect.set(startX, startY, rectWidth.toFloat() + (textSize * 0.85f),
-        rectHeight.toFloat())
-        rectWidth += (textSize * 0.85).toInt()
-        centerX = rectWidth  - 50f
+        rect.set(startX, startY, widthPlusText, rectHeight.toFloat())
+
+        centerX = widthPlusText  - 50f
         centerY = rectHeight / 2f
+        Log.d("LOG", "customDebug onSizeChanged $rectWidth + width $width")
     }
+
+
+
+
+
 
 
 
@@ -164,7 +174,6 @@ class CustomItem(
     }
 
     private fun drawButton(canvas: Canvas){
-
         val path = Path().apply {
             addRoundRect(rect, roundedCorners, roundedCorners, Path.Direction.CW)
         }
@@ -177,7 +186,7 @@ class CustomItem(
 
     private fun drawLine(canvas: Canvas){
         dividingLinePaint.alpha = alphaButton
-        canvas.drawLine(rectWidth - 105f, 25f, rectWidth - 105f, rectHeight -25f, dividingLinePaint)
+        canvas.drawLine(width - 105f, 25f, width - 105f, rectHeight -25f, dividingLinePaint)
     }
 
 
@@ -195,7 +204,7 @@ class CustomItem(
 
     private fun drawCheck(canvas: Canvas){
         checkPaint.alpha = alphaCheck
-        val bottomX = rectWidth - 70f
+        val bottomX = width - 70f
         val bottomY = rectHeight -40f
         canvas.drawLine(bottomX - valueCheck, bottomY - valueCheck, bottomX, bottomY , checkPaint)
         canvas.drawLine(bottomX + valueCheck*2, bottomY - valueCheck*2, bottomX, bottomY, checkPaint)

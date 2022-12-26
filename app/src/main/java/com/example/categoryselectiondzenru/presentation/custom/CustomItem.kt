@@ -158,11 +158,6 @@ class CustomItem(
 
 
 
-
-
-
-
-
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         drawButton(canvas)
@@ -186,7 +181,7 @@ class CustomItem(
 
     private fun drawLine(canvas: Canvas){
         dividingLinePaint.alpha = alphaButton
-        canvas.drawLine(width - 105f, 25f, width - 105f, rectHeight -25f, dividingLinePaint)
+        canvas.drawLine(widthPlusText - 105f, 25f, widthPlusText - 105f, rectHeight -25f, dividingLinePaint)
     }
 
 
@@ -204,7 +199,7 @@ class CustomItem(
 
     private fun drawCheck(canvas: Canvas){
         checkPaint.alpha = alphaCheck
-        val bottomX = width - 70f
+        val bottomX = widthPlusText - 70f
         val bottomY = rectHeight -40f
         canvas.drawLine(bottomX - valueCheck, bottomY - valueCheck, bottomX, bottomY , checkPaint)
         canvas.drawLine(bottomX + valueCheck*2, bottomY - valueCheck*2, bottomX, bottomY, checkPaint)
@@ -294,7 +289,7 @@ class CustomItem(
                 if (counter %2==0){
                     animationPlus(0, 25, 400)
                     alphaAnimationPlus(0, 255, 400)
-                    buttonAnimation(rectWidth, 0, 260)
+                    buttonAnimation(widthPlusText.toInt(), 0, 260)
                     animationCheck(16, 0, 0)
                     alphaAnimationCheck(255, 0, 200)
                     actionListener?.invoke(false)
@@ -302,7 +297,7 @@ class CustomItem(
                 }
                 else {
                     animationPlus(25, 0, 0)
-                    buttonAnimation(0, rectWidth, 160)
+                    buttonAnimation(0, widthPlusText.toInt(), 160)
                     alphaAnimationPlus(255, 0, 200)
                     animationCheck(0, 16, 200)
                     alphaAnimationCheck(0, 255, 200)

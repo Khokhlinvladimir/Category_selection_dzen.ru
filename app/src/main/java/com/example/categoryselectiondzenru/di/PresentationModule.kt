@@ -1,9 +1,12 @@
 package com.example.categoryselectiondzenru.di
 
 import android.content.Context
+import androidx.recyclerview.widget.RecyclerView
 import com.example.categoryselectiondzenru.data.db.CatRoomDatabase
 import com.example.categoryselectiondzenru.data.repository.Repository
+import com.example.categoryselectiondzenru.presentation.adapter.CatAdapter
 import com.example.categoryselectiondzenru.presentation.adapter.measuring.CatManager
+import com.example.categoryselectiondzenru.presentation.adapter.measuring.MeasureHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,8 +43,6 @@ class PresentationModule {
     fun provideCatManager(): CatManager{
         return CatManager()
     }
-
-
 
 
 }

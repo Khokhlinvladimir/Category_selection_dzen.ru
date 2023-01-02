@@ -8,19 +8,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
 @HiltAndroidApp
-class App: Application() {
-
-    private val applicationScope = CoroutineScope(SupervisorJob())
-
-    private val database by lazy {
-      CatRoomDatabase.getDatabase(this, scope = applicationScope)
-    }
-
-    val repository by lazy {
-        Repository(database.catDao())
-    }
+class App: Application()
 
 
 
 
-}
+

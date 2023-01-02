@@ -8,14 +8,14 @@ import com.example.categoryselectiondzenru.model.Category
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
 import com.example.categoryselectiondzenru.presentation.adapter.measuring.CatManager
 import com.example.categoryselectiondzenru.presentation.adapter.measuring.MeasureHelper
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class SelectionCatAdapter(private var categoryList: List<Category>) : RecyclerView.Adapter<SelectionCatAdapter.Holder>() {
+class SelectionCatAdapter @Inject constructor(private var categoryList: List<Category>) : RecyclerView.Adapter<SelectionCatAdapter.Holder>() {
 
     private var ready = false
     private val measureHelper = MeasureHelper(this, categoryList.size, CatManager())
     private var recyclerView: RecyclerView? = null
-    var onItemClickListener: OnItemClickListener? = null
     var measuringDone by Delegates.observable(false) { _, _, newVal ->
         if (newVal) update()
     }

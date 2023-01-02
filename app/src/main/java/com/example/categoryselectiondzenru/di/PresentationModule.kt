@@ -35,6 +35,12 @@ class PresentationModule {
         return Repository(database.catDao())
     }
 
+    @Provides
+    @Singleton
+    fun provideCatManager(): CatManager{
+        return CatManager()
+    }
+
 
 
 

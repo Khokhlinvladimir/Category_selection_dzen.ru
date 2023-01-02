@@ -11,10 +11,9 @@ import com.example.categoryselectiondzenru.model.Category
 import com.example.categoryselectiondzenru.presentation.adapter.SelectionCatAdapter
 import javax.inject.Inject
 
-class MeasureHelper @Inject constructor(private val adapter: Any, private val count: Int) {
+class MeasureHelper @Inject constructor(private val adapter: Any, private val count: Int, val rowManager: CatManager) {
 
     private var measuredCount = 0
-    private val rowManager = CatManager()
     private var baseCell: Float = 0f
 
     fun measureBaseCell(width: Int) {

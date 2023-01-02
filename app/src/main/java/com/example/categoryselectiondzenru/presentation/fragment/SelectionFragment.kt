@@ -4,20 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.categoryselectiondzenru.App
 import com.example.categoryselectiondzenru.R
 import com.example.categoryselectiondzenru.data.entity.Categories
 import com.example.categoryselectiondzenru.databinding.FragmentSelectionBinding
-import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModel
-import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModelFactory
-import com.example.categoryselectiondzenru.presentation.activity.MainActivity
 import com.example.categoryselectiondzenru.model.Category
+import com.example.categoryselectiondzenru.presentation.activity.MainActivity
 import com.example.categoryselectiondzenru.presentation.adapter.CatAdapter
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
+import com.example.categoryselectiondzenru.presentation.viewmodel.CatViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,7 +22,6 @@ class SelectionFragment : Fragment() {
 
     private var _binding: FragmentSelectionBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: CatViewModel by viewModels()
 
 

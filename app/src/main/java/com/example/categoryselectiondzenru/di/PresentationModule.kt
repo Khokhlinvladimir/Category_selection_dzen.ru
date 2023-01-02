@@ -3,6 +3,7 @@ package com.example.categoryselectiondzenru.di
 import android.content.Context
 import com.example.categoryselectiondzenru.data.db.CatRoomDatabase
 import com.example.categoryselectiondzenru.data.repository.Repository
+import com.example.categoryselectiondzenru.presentation.adapter.measuring.CatManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -9,8 +9,9 @@ import com.example.categoryselectiondzenru.databinding.CategorySelectionItemBind
 import com.example.categoryselectiondzenru.presentation.adapter.CatAdapter
 import com.example.categoryselectiondzenru.model.Category
 import com.example.categoryselectiondzenru.presentation.adapter.SelectionCatAdapter
+import javax.inject.Inject
 
-class MeasureHelper(private val adapter: Any, private val count: Int) {
+class MeasureHelper @Inject constructor(private val adapter: Any, private val count: Int) {
 
     private var measuredCount = 0
     private val rowManager = CatManager()

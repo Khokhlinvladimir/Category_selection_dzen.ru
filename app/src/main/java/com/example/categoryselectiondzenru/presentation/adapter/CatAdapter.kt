@@ -7,9 +7,10 @@ import com.example.categoryselectiondzenru.databinding.CategoryItemBinding
 import com.example.categoryselectiondzenru.model.Category
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
 import com.example.categoryselectiondzenru.presentation.adapter.measuring.MeasureHelper
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class CatAdapter(private var categoryList: List<Category>) : RecyclerView.Adapter<CatAdapter.Holder>() {
+class CatAdapter @Inject constructor(private var categoryList: List<Category>) : RecyclerView.Adapter<CatAdapter.Holder>() {
 
     private var ready = false
     private val measureHelper = MeasureHelper(this, categoryList.size)

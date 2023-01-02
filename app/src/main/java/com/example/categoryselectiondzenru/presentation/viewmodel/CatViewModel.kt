@@ -4,10 +4,12 @@ import androidx.lifecycle.*
 import com.example.categoryselectiondzenru.data.entity.Categories
 import com.example.categoryselectiondzenru.data.repository.Repository
 import com.example.categoryselectiondzenru.model.Category
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class CatViewModel(private val repository: Repository) : ViewModel() {
+@HiltViewModel
+class CatViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     val dataBaseCategories: LiveData<List<Categories>> = repository.allCategories.asLiveData()
     private val listCategories = MutableLiveData<List<Category>>()

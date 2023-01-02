@@ -18,15 +18,16 @@ import com.example.categoryselectiondzenru.presentation.activity.MainActivity
 import com.example.categoryselectiondzenru.model.Category
 import com.example.categoryselectiondzenru.presentation.adapter.CatAdapter
 import com.example.categoryselectiondzenru.presentation.adapter.listeners.OnItemClickListener
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SelectionFragment : Fragment() {
 
     private var _binding: FragmentSelectionBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: CatViewModel by viewModels {
-        CatViewModelFactory((requireActivity().application as App).repository)
-    }
+    private val viewModel: CatViewModel by viewModels()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSelectionBinding.inflate(inflater, container, false)

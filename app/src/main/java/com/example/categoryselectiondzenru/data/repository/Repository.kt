@@ -5,8 +5,9 @@ import com.example.categoryselectiondzenru.data.db.CategoriesDao
 import com.example.categoryselectiondzenru.data.entity.Categories
 import com.example.categoryselectiondzenru.model.Category
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class Repository(private val categoriesDao: CategoriesDao) {
+class Repository @Inject constructor(private val categoriesDao: CategoriesDao) {
 
     val allCategories: Flow<List<Categories>> = categoriesDao.getCategories()
 

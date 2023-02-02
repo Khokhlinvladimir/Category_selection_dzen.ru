@@ -1,1 +1,1 @@
-# Category_selection_dzen.ru
+Adapter selection category for dzen.ru

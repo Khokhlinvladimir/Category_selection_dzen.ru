@@ -4,6 +4,10 @@ The android program allows users to select their preferred categories. For this,
 
 The user can select or deselect a category by tapping an item in the RecyclerView. Information about the selected categories is stored in the **Room** database and can be used in the future, depending on the logic of the program.
 
+├─ screens
+     └─ screen_gif.gif
+ ├─ README.md
+
 The program uses the **MVVM** (Model-View-ViewModel) architecture to separate the application logic from its presentation. The Model stores the data, the View displays it, and the ViewModel provides the interaction between the Model and the View. This improves testability and segregation of duties.
 
 The program also uses **coroutines** to manage asynchronous operations and avoid blocking the user interface. Coroutines allow you to run tasks in the background and perform some actions after these tasks are completed.

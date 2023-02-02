@@ -313,10 +313,6 @@ class CustomItem(
     }
 
 
-
-
-
-
     companion object {
         const val OPTION1_DEFAULT_COLOR = Color.RED
         const val OPTION2_DEFAULT_COLOR = Color.BLACK

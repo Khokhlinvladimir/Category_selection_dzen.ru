@@ -29,8 +29,8 @@ class Repository @Inject constructor(private val categoriesDao: CategoriesDao) {
     val listCategories: MutableList<Category>
         get() {
             return mutableListOf(
-               Category( "Юмор"),
-               Category("Еда"),
+                Category( "Юмор"),
+                Category("Еда"),
                 Category("Кино"),
                 Category("Рестораны"),
                 Category("Прогулки"),
@@ -50,6 +50,7 @@ class Repository @Inject constructor(private val categoriesDao: CategoriesDao) {
                 Category("Рестораны"),
                 Category("Прогулки"),
                 Category("Политика"),
+                Category("Новости"),
                 Category("Юмор")
             )
         }
